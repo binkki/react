@@ -8,7 +8,7 @@ type Movie = {
 class MoviesSection extends React.Component {
   movies: Movie[];
 
-  constructor(props: {}) {
+  constructor(props: object) {
     super(props);
     this.movies = [
       {

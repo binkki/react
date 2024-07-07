@@ -1,9 +1,10 @@
 import React from 'react';
+import StorageService from '../services/StorageService';
 
 class SearchSection extends React.Component {
   searchValue: string;
 
-  constructor(props: {}) {
+  constructor(props: object) {
     super(props);
     this.searchValue = '';
     this.search = this.search.bind(this);
@@ -11,7 +12,7 @@ class SearchSection extends React.Component {
   }
 
   search = () => {
-    alert(this.searchValue);
+    StorageService.saveSearchRequestParams(this.searchValue);
   };
 
   input = (e: React.ChangeEvent<HTMLInputElement>) => {
