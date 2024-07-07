@@ -17,7 +17,7 @@
 }
 
 .characters-flex {
-  max-width: 70%;
+  width: 90%;
 }
 
 .search-wrapper {
@@ -51,7 +51,7 @@
 }
 
 .character-item {
-  width: 90%;
+  width: 100%;
   border: 1px solid black;
   padding: 20px;
   display: flex;
