@@ -1,9 +1,14 @@
 import React from 'react';
-import ApiService from '../services/ApiService';
-import StorageService from '../services/StorageService';
-import { AppState, Character } from '../types';
-import { SEARCHPLACEHOLDER, LOADINDDATA, EMPTYDATA } from '../utils/constants';
+import ApiService from '../../services/ApiService';
+import StorageService from '../../services/StorageService';
+import { AppState, Character } from '../../types';
 import './MainPage.css';
+import ErrorButton from './ErrorButton';
+import {
+  SEARCH_PLACEHOLDER,
+  LOADING_DATA,
+  EMPTY_DATA,
+} from '../../utils/constants';
 
 class MainPage extends React.Component {
   state: AppState = {
@@ -40,11 +45,12 @@ class MainPage extends React.Component {
             <input
               id="search-input"
               type="input"
-              placeholder={SEARCHPLACEHOLDER}
+              placeholder={SEARCH_PLACEHOLDER}
               onChange={this.input}
             />
-            <input className="search-submit" type="submit" value="Search" />
+            <input type="submit" className="search-submit" value="Search" />
           </form>
+          <ErrorButton />
           <div className="characters-flex">
             {!this.state.loading &&
               this.state.characters.map((x: Character) => (
@@ -57,9 +63,9 @@ class MainPage extends React.Component {
                   <span>Eye color: {x.eye_color}</span>
                 </div>
               ))}
-            {this.state.loading && <span>{LOADINDDATA}</span>}
+            {this.state.loading && <span>{LOADING_DATA}</span>}
             {!this.state.characters.length && !this.state.loading && (
-              <span>{EMPTYDATA}</span>
+              <span>{EMPTY_DATA}</span>
             )}
           </div>
         </div>

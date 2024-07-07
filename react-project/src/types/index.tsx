@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type Character = {
   name: string;
   height: string;
@@ -39,4 +41,12 @@ export type AppState = {
   searchValue: string;
   characters: Character[];
   loading: boolean;
+};
+
+export type ErrorBoundaryState = {
+  hasError: boolean;
+};
+
+export type ErrorBoundaryProps = {
+  children: ReactNode;
 };

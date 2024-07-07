@@ -1,12 +1,12 @@
-import { STORAGESEARCH } from '../utils/constants';
+import { STORAGE_SEARCH } from '../utils/constants';
 
 class StorageService {
   static getLastSearchRequestParams = (): string => {
-    return localStorage.getItem(STORAGESEARCH) ?? '';
+    return localStorage.getItem(STORAGE_SEARCH) ?? '';
   };
 
   static saveSearchRequestParams = (params: string) => {
-    localStorage.setItem(STORAGESEARCH, params);
+    localStorage.setItem(STORAGE_SEARCH, params);
   };
 }
 

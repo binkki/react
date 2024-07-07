@@ -1,5 +1,5 @@
 import { Character, CharacterApiResponse } from '../types';
-import { CHARACTERURL } from '../utils/constants';
+import { CHARACTER_URL } from '../utils/constants';
 import StorageService from './StorageService';
 
 class ApiService {
@@ -13,7 +13,7 @@ class ApiService {
 
   static getCharacters = (): Promise<Character[]> => {
     return ApiService.get(
-      `${CHARACTERURL}?search=${StorageService.getLastSearchRequestParams() ?? ''}`
+      `${CHARACTER_URL}?search=${StorageService.getLastSearchRequestParams() ?? ''}`
     )
       .then((value: Response) => value.json())
       .then((value: CharacterApiResponse) => value.results);
