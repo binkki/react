@@ -1,0 +1,3 @@
+cd ./react-project
+npm run format:fix
+npm run lint
