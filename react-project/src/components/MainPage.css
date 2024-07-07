@@ -1,68 +1,67 @@
 .main-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-  
-  .characters-flex,
-  .search-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .characters-flex {
-    max-width: 70%;
-  }
-  
-  .search-wrapper {
-    & > * {
-      height: 30px;
-      padding: 0;
-      margin-bottom: 10px;
-    }
-  }
-  
-  #search-input {
-    border: none;
-    width: 200px;
-    border-bottom: 1px solid black;
-    &:hover {
-      cursor: text;
-    }
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  .search-submit {
-    width: 100px;
-    background-color: white;
-    border: 1px solid black;
-    &:hover {
-      cursor: pointer;
-      border-color: gray;
-      background-color: gray;
-    }
-  }
-  
-  .character-item {
-    width: 90%;
-    border: 1px solid black;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
 
-  .character-info {
-    display: flex;
-    gap: 15px;
-    justify-content: flex-start;
+.characters-flex,
+.search-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.characters-flex {
+  max-width: 70%;
+}
+
+.search-wrapper {
+  & > * {
+    height: 30px;
+    padding: 0;
+    margin-bottom: 10px;
   }
-  
+}
+
+#search-input {
+  border: none;
+  width: 200px;
+  border-bottom: 1px solid black;
+  &:hover {
+    cursor: text;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.search-submit {
+  width: 100px;
+  background-color: white;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    border-color: gray;
+    background-color: gray;
+  }
+}
+
+.character-item {
+  width: 90%;
+  border: 1px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.character-info {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+}

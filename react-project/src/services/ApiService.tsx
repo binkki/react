@@ -12,11 +12,9 @@ class ApiService {
     });
 
   static getCharacters = (): Promise<Character[]> => {
-    const searchValue = StorageService.getLastSearchRequestParams();
-    const url = searchValue
-      ? `${CHARACTERURL}?search=${searchValue}`
-      : CHARACTERURL;
-    return ApiService.get(url)
+    return ApiService.get(
+      `${CHARACTERURL}?search=${StorageService.getLastSearchRequestParams() ?? ''}`
+    )
       .then((value: Response) => value.json())
       .then((value: CharacterApiResponse) => value.results);
   };
