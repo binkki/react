@@ -13,7 +13,7 @@ class ApiService {
 
   static getCharacters = (): Promise<Character[]> => {
     return ApiService.get(
-      `${CHARACTER_URL}?search=${StorageService.getLastSearchRequestParams() ?? ''}`
+      `${CHARACTER_URL}?search=${StorageService.getLastSearchRequestParams()}`
     )
       .then((value: Response) => value.json())
       .then((value: CharacterApiResponse) => value.results);

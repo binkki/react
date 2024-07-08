@@ -1,0 +1,29 @@
+.error-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-text {
+  margin: 5px 0 0 0;
+  color: #48304d;
+  &:hover {
+    cursor: default;
+  }
+}
+
+.error-link {
+  width: 100px;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  text-decoration: none;
+  margin-top: 20px;
+  &:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+  }
+}
