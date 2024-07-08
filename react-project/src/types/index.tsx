@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 export type Character = {
   name: string;
   height: string;
@@ -24,29 +22,4 @@ export type CharacterApiResponse = {
   next: string | null;
   previous: string | null;
   results: Character[];
-};
-
-export type Planet = {
-  name: string;
-};
-
-export type PlanetApiResponse = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Planet[];
-};
-
-export type AppState = {
-  searchValue: string;
-  characters: Character[];
-  loading: boolean;
-};
-
-export type ErrorBoundaryState = {
-  hasError: boolean;
-};
-
-export type ErrorBoundaryProps = {
-  children: ReactNode;
 };

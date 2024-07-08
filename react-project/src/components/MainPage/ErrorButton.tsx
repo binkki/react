@@ -1,33 +1,27 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import { ERROR_BUTTON_MESSAGE } from '../../utils/constants';
 
-type State = {
-  isError: boolean;
-};
+const ErrorButton = () => {
+  const [error, setError] = useState(false);
 
-class ErrorButton extends Component<object, State> {
-  state = { isError: false };
-
-  componentDidUpdate() {
-    if (this.state.isError) {
+  useEffect(() => {
+    if (error) {
       throw new Error(ERROR_BUTTON_MESSAGE);
     }
-  }
+  }, [error]);
 
-  makeError = () => {
-    this.setState({ isError: true });
+  const makeError = () => {
+    setError(true);
   };
 
-  render() {
-    return (
-      <input
-        type="button"
-        className="search-submit"
-        value="Error Button"
-        onClick={this.makeError}
-      />
-    );
-  }
-}
+  return (
+    <input
+      type="button"
+      className="search-submit"
+      value="Error Button"
+      onClick={makeError}
+    />
+  );
+};
 
 export default ErrorButton;
