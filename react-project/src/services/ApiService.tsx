@@ -1,6 +1,5 @@
-import { Character, CharacterApiResponse } from '../types';
+import { CharacterApiResponse } from '../types';
 import { CHARACTER_URL } from '../utils/constants';
-import StorageService from './StorageService';
 
 class ApiService {
   static get = (url: string): Promise<Response> =>
@@ -11,12 +10,13 @@ class ApiService {
       },
     });
 
-  static getCharacters = (): Promise<Character[]> => {
+  static getCharacters = (
+    searchQuery: string,
+    page: number
+  ): Promise<CharacterApiResponse> => {
     return ApiService.get(
-      `${CHARACTER_URL}?search=${StorageService.getLastSearchRequestParams()}`
-    )
-      .then((value: Response) => value.json())
-      .then((value: CharacterApiResponse) => value.results);
+      `${CHARACTER_URL}?page=${page}&search=${searchQuery}`
+    ).then((value: Response) => value.json());
   };
 }
 

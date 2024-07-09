@@ -1,41 +1,55 @@
 import { useEffect, useState } from 'react';
-import ErrorButton from './ErrorButton';
 import Search from './Search';
 import CharacterItem from './CharacterItem';
-import ApiService from '../../services/ApiService';
-import { Character } from '../../types';
-import { LOADING_DATA, EMPTY_DATA } from '../../utils/constants';
+import Pagination from './Pagination';
+import { Character, CharacterApiResponse } from '../../types';
+import { EMPTY_DATA, LOADING_DATA } from '../../utils/constants';
 import './MainPage.css';
+import {
+  useLoaderData,
+  useLocation,
+  useNavigation,
+  useSearchParams,
+} from 'react-router-dom';
 
 const MainPage = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [loading, setLoading] = useState(false);
+  const characters: CharacterApiResponse =
+    useLoaderData() as CharacterApiResponse;
+  const [page, setPage] = useState(0);
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    search();
-  }, []);
+    setPage(searchParams.get('page') ? Number(searchParams.get('page')) : 1);
+  }, [location, searchParams]);
 
-  const search = async () => {
-    setLoading(true);
-    ApiService.getCharacters().then((value: Character[]) => {
-      setCharacters(value);
-      setLoading(false);
-    });
-  };
-
-  return (
+  return navigation.state === 'loading' ? (
     <>
       <div className="main-wrapper">
-        <Search searchCharacters={search} />
-        <ErrorButton />
+        <Search />
         <div className="characters-flex">
-          {loading && <span>{LOADING_DATA}</span>}
-          {!loading &&
-            characters.map((x: Character) => (
-              <CharacterItem key={x.name} character={x} />
-            ))}
-          {!characters.length && !loading && <span>{EMPTY_DATA}</span>}
+          <span>{LOADING_DATA}</span>
         </div>
+      </div>
+    </>
+  ) : (
+    <>
+      <div className="main-wrapper">
+        <Search />
+        <div className="characters-flex">
+          {characters?.results.map((x: Character) => (
+            <CharacterItem key={x.name} character={x} />
+          ))}
+          {!characters?.results.length && <span>{EMPTY_DATA}</span>}
+        </div>
+        {characters?.results.length !== 0 && (
+          <Pagination
+            currentPage={page}
+            nextPage={characters.next}
+            previousPage={characters.previous}
+          />
+        )}
       </div>
     </>
   );

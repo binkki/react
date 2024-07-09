@@ -22,4 +22,5 @@ export type CharacterApiResponse = {
   next: string | null;
   previous: string | null;
   results: Character[];
+  detail: string;
 };

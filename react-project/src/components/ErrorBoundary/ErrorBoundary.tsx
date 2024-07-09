@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import NotFound from '../NotFound/NotFound';
 
 type ErrorBoundaryState = {
   hasError: boolean;
@@ -26,18 +27,6 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
   };
 
   render() {
-    return this.state.hasError ? (
-      <div className="error-wrapper">
-        <span>Some Error</span>
-        <input
-          type="button"
-          className="search-submit"
-          value="Go home"
-          onClick={this.resetErrorBoundary}
-        />
-      </div>
-    ) : (
-      this.props.children
-    );
+    return this.state.hasError ? <NotFound /> : this.props.children;
   }
 }
