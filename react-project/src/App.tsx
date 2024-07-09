@@ -6,7 +6,6 @@ import {
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainPage from './components/MainPage/MainPage';
 import NotFound from './components/NotFound/NotFound';
-import { characterLoader } from './components/MainPage/MainPageLoader';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +20,6 @@ const router = createBrowserRouter([
         <MainPage />
       </ErrorBoundary>
     ),
-    loader: characterLoader,
   },
   {
     path: 'not-found',

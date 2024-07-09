@@ -5,26 +5,36 @@ import Pagination from './Pagination';
 import { Character, CharacterApiResponse } from '../../types';
 import { EMPTY_DATA, LOADING_DATA } from '../../utils/constants';
 import './MainPage.css';
-import {
-  useLoaderData,
-  useLocation,
-  useNavigation,
-  useSearchParams,
-} from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { getCharacters } from '../../services/ApiService';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const MainPage = () => {
-  const characters: CharacterApiResponse =
-    useLoaderData() as CharacterApiResponse;
-  const [page, setPage] = useState(0);
+  const [characters, setCharacters] = useState<CharacterApiResponse>();
+  const [page, setPage] = useState(1);
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const navigation = useNavigation();
+  const navigate = useNavigate();
+  const { getSearchValue } = useLocalStorage();
 
   useEffect(() => {
-    setPage(searchParams.get('page') ? Number(searchParams.get('page')) : 1);
-  }, [location, searchParams]);
+    const currentPage = searchParams.get('page')
+      ? Number(searchParams.get('page'))
+      : 1;
+    if (isNaN(currentPage)) return navigate('/not-found');
+    setPage(currentPage);
+    const searchValue = getSearchValue();
+    getCharacters(currentPage, searchValue ?? '').then(
+      (value: CharacterApiResponse) => {
+        if (value.detail) {
+          return navigate('/not-found');
+        }
+        setCharacters(value);
+      }
+    );
+  }, [location]);
 
-  return navigation.state === 'loading' ? (
+  return characters === undefined ? (
     <>
       <div className="main-wrapper">
         <Search />

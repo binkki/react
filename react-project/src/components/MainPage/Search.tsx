@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import StorageService from '../../services/StorageService';
 import { SEARCH_PLACEHOLDER } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 type SearchFormFields = {
   search: string;
@@ -10,10 +10,12 @@ type SearchFormFields = {
 const Search = () => {
   const { register, handleSubmit, reset } = useForm<SearchFormFields>();
   const navigate = useNavigate();
+  const { setSearchValue, getSearchValue } = useLocalStorage();
+  const searchValue = getSearchValue();
 
   const submitSearch: SubmitHandler<SearchFormFields> = (data) => {
     reset();
-    StorageService.saveSearchRequestParams(data.search);
+    setSearchValue(data.search);
     navigate(`/characters?page=1`);
   };
 
@@ -23,8 +25,7 @@ const Search = () => {
         <input
           id="search-input"
           type="search"
-          defaultValue={StorageService.getLastSearchRequestParams()}
-          placeholder={SEARCH_PLACEHOLDER}
+          placeholder={searchValue ? `Showing search result for '${searchValue}'` : SEARCH_PLACEHOLDER}
           {...register('search')}
         />
         <input type="submit" className="search-submit" value="Search" />
