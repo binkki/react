@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import './Pagination.css';
 
 type PaginationProps = {
   currentPage: number;
@@ -11,22 +12,24 @@ const Pagination = (props: PaginationProps) => {
   const navigate = useNavigate();
 
   const changePage = (newPage: number) => {
-    navigate(`/characters?page=${currentPage + newPage}`);
+    navigate(`/${currentPage + newPage}`);
   };
 
   return (
-    <div className="pagination">
+    <div className="pagination flex">
       <input
         type="submit"
-        className={previousPage ? 'search-submit' : 'button-disabled'}
-        value="Prew"
+        className="pagination-item clickable"
+        value="<"
+        disabled={previousPage ? false : true}
         onClick={() => changePage(-1)}
       />
-      <span>{currentPage}</span>
+      <span className="pagination-item">{currentPage}</span>
       <input
         type="submit"
-        className={nextPage ? 'search-submit' : 'button-disabled'}
-        value="Next"
+        className="pagination-item clickable"
+        value=">"
+        disabled={nextPage ? false : true}
         onClick={() => changePage(1)}
       />
     </div>

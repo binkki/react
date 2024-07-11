@@ -1,25 +1,34 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainPage from './components/MainPage/MainPage';
 import NotFound from './components/NotFound/NotFound';
+import DetailsPage from './components/DetailsPage/DetailsPage';
+
+const Root = () => {
+  return (
+    <ErrorBoundary>
+      <MainPage />
+    </ErrorBoundary>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="characters?page=1" replace />,
+    element: <Navigate to="/1" replace />,
+    errorElement: <NotFound />,
   },
   {
-    path: 'characters',
+    path: '/:pageId',
+    element: <Root />,
     errorElement: <NotFound />,
-    element: (
-      <ErrorBoundary>
-        <MainPage />
-      </ErrorBoundary>
-    ),
+    children: [
+      {
+        path: '/:pageId/:characterId',
+        element: <DetailsPage />,
+        errorElement: <NotFound />,
+      },
+    ],
   },
   {
     path: 'not-found',

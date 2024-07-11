@@ -1,0 +1,24 @@
+.pagination {
+  margin-bottom: 10px;
+  height: 40px;
+  gap: 10px;
+  border: 1px solid white;
+  border-radius: 20px;
+  &:hover {
+    border-color: #fade4b;
+  }
+}
+
+.pagination-item {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  align-content: center;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: transparent;
+  &:disabled {
+    color: black;
+  }
+}

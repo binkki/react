@@ -1,4 +1,6 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Character } from '../../types';
+import { getCharacterIdFromUrl, getCharacterImageUrl, getPageIdFromPath } from '../../utils/utils';
 
 type CharacterProps = {
   character: Character;
@@ -6,18 +8,20 @@ type CharacterProps = {
 
 const CharacterItem = (props: CharacterProps) => {
   const { character } = props;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const openDetails = () => {
+    const currentPage = Number(getPageIdFromPath(location.pathname));
+    const currentCharacter = getCharacterIdFromUrl(character.url);
+    navigate(`/${currentPage}/${currentCharacter}`);
+  };
 
   return (
-    <>
-      <div className="character-item">
-        <span>Name: {character.name}</span>
-        <span>Gender: {character.gender}</span>
-        <span>Birth year: {character.birth_year}</span>
-        <span>Height: {character.height}</span>
-        <span>Mass: {character.mass}</span>
-        <span>Eye color: {character.eye_color}</span>
-      </div>
-    </>
+    <div className="character-item clickable flex" onClick={openDetails}>
+      <img src={getCharacterImageUrl(character.url)} className="character-image" />
+      <span>{character.name}</span>
+    </div>
   );
 };
 

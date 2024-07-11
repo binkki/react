@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom';
+import { IMAGE404 } from '../../utils/constants';
 import './NotFound.css';
 
-const NotFound = () => {
+export default function NotFoundPage() {
   return (
-    <div className="error-page">
-      <p className="error-text">404</p>
-      <p className="error-text">The page you are looking for not avaible.</p>
+    <div className="error-wrapper flex">
+      <img src={IMAGE404} alt="not found" className="cart-empty" />
       <Link to="/" className="error-link">
-        Go home
+        GO HOME
       </Link>
     </div>
   );
-};
-
-export default NotFound;
+}

@@ -1,67 +1,57 @@
 import { useEffect, useState } from 'react';
-import Search from './Search';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import Search from '../Search/Search';
 import CharacterItem from './CharacterItem';
-import Pagination from './Pagination';
+import Pagination from '../Pagination/Pagination';
 import { Character, CharacterApiResponse } from '../../types';
-import { EMPTY_DATA, LOADING_DATA } from '../../utils/constants';
-import './MainPage.css';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { EMPTY_DATA } from '../../utils/constants';
 import { getCharacters } from '../../services/ApiService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { getPageIdFromPath, isValidNumber } from '../../utils/utils';
+import './MainPage.css';
 
 const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
   const [page, setPage] = useState(1);
   const location = useLocation();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getSearchValue } = useLocalStorage();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const currentPage = searchParams.get('page')
-      ? Number(searchParams.get('page'))
-      : 1;
-    if (isNaN(currentPage)) return navigate('/not-found');
+    setLoading(true);
+    if (!isValidNumber(getPageIdFromPath(location.pathname))) return navigate('/not-found');
+    const searchValue = getSearchValue() ?? '';
+    const currentPage = Number(getPageIdFromPath(location.pathname));
     setPage(currentPage);
-    const searchValue = getSearchValue();
-    getCharacters(currentPage, searchValue ?? '').then(
-      (value: CharacterApiResponse) => {
-        if (value.detail) {
-          return navigate('/not-found');
-        }
-        setCharacters(value);
-      }
-    );
-  }, [location]);
+    getCharacters(currentPage, searchValue).then((value: CharacterApiResponse) => {
+      setCharacters(value);
+      setLoading(false);
+    });
+  }, [location, navigate]);
 
-  return characters === undefined ? (
-    <>
-      <div className="main-wrapper">
-        <Search />
-        <div className="characters-flex">
-          <span>{LOADING_DATA}</span>
-        </div>
-      </div>
-    </>
+  return loading ? (
+    <div className="main-wrapper">
+      <Search isDisabled={loading} />
+    </div>
   ) : (
-    <>
-      <div className="main-wrapper">
-        <Search />
-        <div className="characters-flex">
-          {characters?.results.map((x: Character) => (
-            <CharacterItem key={x.name} character={x} />
-          ))}
+    <div className="main-wrapper flex">
+      <Search />
+      <div className="main-container flex">
+        <div className="characters-flex flex">
+          {characters?.results.map((x: Character) => <CharacterItem key={x.name} character={x} />)}
           {!characters?.results.length && <span>{EMPTY_DATA}</span>}
         </div>
-        {characters?.results.length !== 0 && (
-          <Pagination
-            currentPage={page}
-            nextPage={characters.next}
-            previousPage={characters.previous}
-          />
-        )}
+        <Outlet />
       </div>
-    </>
+      {characters?.results.length !== 0 && (
+        <Pagination
+          currentPage={page}
+          nextPage={characters?.next ?? null}
+          previousPage={characters?.previous ?? null}
+        />
+      )}
+    </div>
   );
 };
 
