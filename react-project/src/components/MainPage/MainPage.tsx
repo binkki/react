@@ -9,6 +9,7 @@ import { getCharacters } from '../../services/ApiService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { getPageIdFromPath, isValidNumber } from '../../utils/utils';
 import './MainPage.css';
+import Loader from '../Loader/Loader';
 
 const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
@@ -36,6 +37,9 @@ const MainPage = () => {
   return loading ? (
     <div className="main-wrapper">
       <Search isDisabled={loading} />
+      <div className="main-container flex">
+        <Loader />
+      </div>
     </div>
   ) : (
     <div className="main-wrapper flex">
