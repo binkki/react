@@ -15,7 +15,7 @@ type SearchProps = {
 
 const Search = (props: SearchProps) => {
   const { isDisabled } = props;
-  const { register, handleSubmit, reset } = useForm<SearchFormFields>();
+  const { register, handleSubmit } = useForm<SearchFormFields>();
   const { localValue, setLocalValue } = useLocalStorage();
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
@@ -25,8 +25,7 @@ const Search = (props: SearchProps) => {
   }, [localValue]);
 
   const submitSearch: SubmitHandler<SearchFormFields> = async (data) => {
-    setLocalValue(data.search);
-    reset();
+    setLocalValue(data.search.trim());
     navigate('/1');
   };
 
