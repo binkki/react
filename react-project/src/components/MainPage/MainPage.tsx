@@ -15,6 +15,7 @@ const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { getLocalValue } = useLocalStorage();
@@ -32,18 +33,18 @@ const MainPage = () => {
       setPage(currentPage);
       setLoading(false);
     });
-  }, [location]);
+  }, [reload]);
 
   return loading ? (
     <div className="main-wrapper">
-      <Search isDisabled={loading} />
+      <Search isDisabled={loading} reload={reload} setReload={setReload} />
       <div className="main-container flex">
         <Loader />
       </div>
     </div>
   ) : (
     <div className="main-wrapper flex">
-      <Search />
+      <Search reload={reload} setReload={setReload} />
       <div className="main-container flex">
         <div className="characters-flex flex">
           {characters?.results.map((x: Character) => <CharacterItem key={x.name} character={x} />)}
@@ -56,6 +57,8 @@ const MainPage = () => {
           currentPage={page}
           nextPage={characters?.next ?? null}
           previousPage={characters?.previous ?? null}
+          reload={reload}
+          setReload={setReload}
         />
       )}
     </div>

@@ -11,10 +11,12 @@ type SearchFormFields = {
 
 type SearchProps = {
   isDisabled?: boolean;
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Search = (props: SearchProps) => {
-  const { isDisabled } = props;
+  const { isDisabled, reload, setReload } = props;
   const { register, handleSubmit } = useForm<SearchFormFields>();
   const { localValue, setLocalValue } = useLocalStorage();
   const [searchValue, setSearchValue] = useState('');
@@ -26,6 +28,7 @@ const Search = (props: SearchProps) => {
 
   const submitSearch: SubmitHandler<SearchFormFields> = async (data) => {
     setLocalValue(data.search.trim());
+    setReload(!reload);
     navigate('/1');
   };
 

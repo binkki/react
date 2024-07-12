@@ -5,14 +5,18 @@ type PaginationProps = {
   currentPage: number;
   nextPage: string | null;
   previousPage: string | null;
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { currentPage, nextPage, previousPage } = props;
+  const { currentPage, nextPage, previousPage, reload, setReload } = props;
   const navigate = useNavigate();
 
-  const changePage = (newPage: number) => {
-    navigate(`/${currentPage + newPage}`);
+  const changePage = (step: number) => {
+    const newPage = currentPage + step;
+    setReload(!reload);
+    navigate(`/${newPage}`);
   };
 
   return (
