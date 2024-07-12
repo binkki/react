@@ -3,24 +3,31 @@ import { SEARCH_PLACEHOLDER } from '../../utils/constants';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 import './Search.css';
+import { useEffect, useState } from 'react';
 
 type SearchFormFields = {
   search: string;
 };
 
 type SearchProps = {
+  setSearch: React.Dispatch<React.SetStateAction<string | null>>;
   isDisabled?: boolean;
 };
 
 const Search = (props: SearchProps) => {
-  const { isDisabled } = props;
+  const { setSearch, isDisabled } = props;
   const { register, handleSubmit, reset } = useForm<SearchFormFields>();
-  const { setSearchValue, getSearchValue } = useLocalStorage();
-  const searchValue = getSearchValue();
+  const { localValue } = useLocalStorage();
+  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
-  const submitSearch: SubmitHandler<SearchFormFields> = (data) => {
+  useEffect(() => {
+    setSearchValue(localValue);
+  }, [localValue]);
+
+  const submitSearch: SubmitHandler<SearchFormFields> = async (data) => {
     setSearchValue(data.search);
+    await setSearch(data.search);
     reset();
     navigate('/1');
   };
@@ -32,7 +39,9 @@ const Search = (props: SearchProps) => {
         className={isDisabled ? 'loading' : ''}
         type="text"
         autoComplete="off"
-        placeholder={searchValue ? `Search result for '${searchValue}'` : SEARCH_PLACEHOLDER}
+        placeholder={
+          searchValue && !isDisabled ? `Search result for '${searchValue}'` : SEARCH_PLACEHOLDER
+        }
         disabled={isDisabled ?? false}
         {...register('search')}
       />

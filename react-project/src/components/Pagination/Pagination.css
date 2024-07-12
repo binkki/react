@@ -6,6 +6,7 @@
   border-radius: 20px;
   &:hover {
     border-color: #fade4b;
+    cursor: default;
   }
 }
 
@@ -20,5 +21,6 @@
   background-color: transparent;
   &:disabled {
     color: black;
+    cursor: default !important;
   }
 }

@@ -29,7 +29,7 @@ const DetailsPage = () => {
       setCharacter(value);
       setLoading(false);
     });
-  }, [location, navigate]);
+  }, [location]);
 
   const close = () => {
     const currentPage = Number(getPageIdFromPath(location.pathname));

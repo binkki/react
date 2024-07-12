@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { STORAGE_SEARCH } from '../utils/constants';
 
 export function useLocalStorage() {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem(STORAGE_SEARCH) ?? '');
+  const [localValue, setLocalValue] = useState(localStorage.getItem(STORAGE_SEARCH) ?? '');
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_SEARCH, searchValue);
-  }, [searchValue]);
+    localStorage.setItem(STORAGE_SEARCH, localValue);
+  }, [localValue]);
 
-  const getSearchValue = (): string | null => localStorage.getItem(STORAGE_SEARCH);
+  const getLocalValue = (): string | null => localStorage.getItem(STORAGE_SEARCH);
 
-  return { setSearchValue, getSearchValue };
+  return { localValue, setLocalValue, getLocalValue };
 }
