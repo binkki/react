@@ -10,14 +10,13 @@ type SearchFormFields = {
 };
 
 type SearchProps = {
-  setSearch: React.Dispatch<React.SetStateAction<string | null>>;
   isDisabled?: boolean;
 };
 
 const Search = (props: SearchProps) => {
-  const { setSearch, isDisabled } = props;
+  const { isDisabled } = props;
   const { register, handleSubmit, reset } = useForm<SearchFormFields>();
-  const { localValue } = useLocalStorage();
+  const { localValue, setLocalValue } = useLocalStorage();
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
@@ -26,8 +25,7 @@ const Search = (props: SearchProps) => {
   }, [localValue]);
 
   const submitSearch: SubmitHandler<SearchFormFields> = async (data) => {
-    setSearchValue(data.search);
-    await setSearch(data.search);
+    setLocalValue(data.search);
     reset();
     navigate('/1');
   };

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Search from '../Search/Search';
 import CharacterItem from './CharacterItem';
@@ -14,44 +14,32 @@ const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [lastSearch, setLastSearch] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { setLocalValue, getLocalValue } = useLocalStorage();
-  const searchRef = useRef<string>('');
+  const { getLocalValue } = useLocalStorage();
 
   useEffect(() => {
-    let localSearch = getLocalValue() ?? '';
-    if (lastSearch !== null) {
-      localSearch = lastSearch;
-    }
-    searchRef.current = localSearch;
-    setLoading(true);
     if (!isValidNumber(getPageIdFromPath(location.pathname))) return navigate('/not-found');
+    setLoading(true);
     const currentPage = Number(getPageIdFromPath(location.pathname));
-    setPage(currentPage);
+    const localSearch = getLocalValue() ?? '';
     getCharacters(currentPage, localSearch).then((value: CharacterApiResponse) => {
       if (value.detail) {
         navigate('/not-found');
       }
       setCharacters(value);
+      setPage(currentPage);
       setLoading(false);
     });
-  }, [location, lastSearch]);
-
-  useEffect(() => {
-    return () => {
-      setLocalValue(searchRef.current);
-    };
-  });
+  }, [location]);
 
   return loading ? (
     <div className="main-wrapper">
-      <Search setSearch={setLastSearch} isDisabled={loading} />
+      <Search isDisabled={loading} />
     </div>
   ) : (
     <div className="main-wrapper flex">
-      <Search setSearch={setLastSearch} />
+      <Search />
       <div className="main-container flex">
         <div className="characters-flex flex">
           {characters?.results.map((x: Character) => <CharacterItem key={x.name} character={x} />)}
