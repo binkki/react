@@ -15,7 +15,7 @@ export type Character = {
   created: string;
   edited: string;
   url: string;
-  detail: string;
+  detail?: string;
 };
 
 export type CharacterApiResponse = {

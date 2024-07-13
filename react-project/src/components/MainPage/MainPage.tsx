@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Search from '../Search/Search';
-import CharacterItem from './CharacterItem';
 import Pagination from '../Pagination/Pagination';
-import { Character, CharacterApiResponse } from '../../types';
-import { EMPTY_DATA } from '../../utils/constants';
+import { CharacterApiResponse } from '../../types';
 import { getCharacters } from '../../services/ApiService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { getPageIdFromPath, isValidNumber } from '../../utils/utils';
 import './MainPage.css';
 import Loader from '../Loader/Loader';
+import CharacterList from './CharacterList';
 
 const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
@@ -46,10 +45,7 @@ const MainPage = () => {
     <div className="main-wrapper flex">
       <Search reload={reload} setReload={setReload} />
       <div className="main-container flex">
-        <div className="characters-flex flex">
-          {characters?.results.map((x: Character) => <CharacterItem key={x.name} character={x} />)}
-          {!characters?.results.length && <span>{EMPTY_DATA}</span>}
-        </div>
+        <CharacterList characters={characters?.results ?? []} />
         <Outlet />
       </div>
       {characters?.results.length !== 0 && (
