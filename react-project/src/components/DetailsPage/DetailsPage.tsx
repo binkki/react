@@ -41,7 +41,7 @@ const DetailsPage = () => {
       <Loader />
     </div>
   ) : (
-    <div className="details-wrapper flex">
+    <div className="details-wrapper flex" data-testid="character-details">
       {character && (
         <>
           <button className="details-button" onClick={close} />

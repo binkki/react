@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './Pagination.css';
+import React from 'react';
 
 type PaginationProps = {
   currentPage: number;

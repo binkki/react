@@ -4,7 +4,7 @@ import MainPage from './components/MainPage/MainPage';
 import NotFound from './components/NotFound/NotFound';
 import DetailsPage from './components/DetailsPage/DetailsPage';
 
-const Root = () => {
+export const Root = () => {
   return (
     <ErrorBoundary>
       <MainPage />

@@ -4,6 +4,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 import './Search.css';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 type SearchFormFields = {
   search: string;

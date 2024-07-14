@@ -25,7 +25,11 @@ const CharacterItem = (props: CharacterProps) => {
   };
 
   return (
-    <div className="character-item clickable flex" onClick={openDetails}>
+    <div
+      className="character-item clickable flex"
+      data-testid="character-list"
+      onClick={openDetails}
+    >
       <img src={url} className="character-image" />
       <span>{character.name}</span>
     </div>
