@@ -38,7 +38,16 @@ describe('Details Component', () => {
       await userEvent.click(nextButton[0]);
     });
 
-    let currentPageNumber = screen.getByTestId('pagination-page');
+    await waitFor(
+      () => {
+        return screen.findAllByTestId('character-list');
+      },
+      {
+        timeout: 50000,
+      }
+    );
+
+    const currentPageNumber = screen.getByTestId('pagination-page');
     expect(currentPageNumber.textContent).toBe('2');
   });
 });
