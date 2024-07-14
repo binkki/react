@@ -1,0 +1,68 @@
+.details-wrapper {
+  position: sticky;
+  top: 0px;
+  width: 200px;
+  height: 450px;
+  align-self: start;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  & > span {
+    display: inline-block;
+    width: 100%;
+    &:hover {
+      cursor: default;
+    }
+  }
+}
+
+.details-button {
+  align-self: flex-end;
+  width: 20px;
+  height: 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-image: url(https://i.ibb.co/R2SMV7Q/close.png);
+  &:hover {
+    background-image: url(https://i.ibb.co/HVqF2b8/close-hover.png);
+    cursor: pointer;
+  }
+}
+
+.details-image {
+  width: 190px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 500px) {
+  .details-wrapper {
+    width: 250px;
+    height: 510px;
+  }
+  .details-image {
+    width: 240px;
+  }
+}
+
+@media (min-width: 800px) {
+  .details-wrapper {
+    width: 300px;
+    height: 575px;
+  }
+  .details-image {
+    width: 290px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .details-wrapper {
+    width: 400px;
+    height: 715px;
+  }
+  .details-image {
+    width: 390px;
+  }
+}

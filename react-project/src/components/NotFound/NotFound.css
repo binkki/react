@@ -1,0 +1,23 @@
+.error-wrapper {
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.cart-empty {
+  width: calc(100% - 10px);
+  max-width: 500px;
+}
+
+.error-link {
+  border-radius: 30px;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 20px;
+  background: transparent;
+  margin-top: 20px;
+  text-decoration: none;
+  &:hover {
+    border-color: #fade4b;
+  }
+}

@@ -1,2 +1,2 @@
 cd ./react-project
-npm run lint
+npm run test
