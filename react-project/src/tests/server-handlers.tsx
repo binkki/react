@@ -4,7 +4,10 @@ import { testCharacterList } from './testData';
 
 const handlers = [
   http.get(`${CHARACTER_URL}`, () => {
-    return HttpResponse.json({ results: testCharacterList });
+    return HttpResponse.json({
+      results: testCharacterList,
+      next: '/1',
+    });
   }),
   http.get(`${CHARACTER_URL}/1`, () => {
     return HttpResponse.json(testCharacterList[0]);

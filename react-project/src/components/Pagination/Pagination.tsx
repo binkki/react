@@ -29,7 +29,9 @@ const Pagination = (props: PaginationProps) => {
         disabled={previousPage ? false : true}
         onClick={() => changePage(-1)}
       />
-      <span className="pagination-item">{currentPage}</span>
+      <span className="pagination-item" data-testid="pagination-page">
+        {currentPage}
+      </span>
       <input
         type="submit"
         className="pagination-item clickable"
