@@ -44,7 +44,7 @@ const DetailsPage = () => {
     <div className="details-wrapper flex" data-testid="character-details">
       {character && (
         <>
-          <button className="details-button" onClick={close} />
+          <button className="details-button" data-testid="details-close" onClick={close} />
           <span>{character?.name}</span>
           <img src={getCharacterImageUrl(character.url)} className="details-image" />
           <span>Gender: {character?.gender}</span>
