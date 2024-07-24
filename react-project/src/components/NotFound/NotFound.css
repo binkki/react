@@ -4,20 +4,33 @@
   height: 100vh;
 }
 
-.cart-empty {
+.error-image {
   width: calc(100% - 10px);
   max-width: 500px;
 }
 
 .error-link {
   border-radius: 30px;
-  border: 1px solid white;
-  color: white;
   padding: 10px 20px;
   background: transparent;
   margin-top: 20px;
   text-decoration: none;
   &:hover {
-    border-color: #fade4b;
+    border-color: #fade4b !important;
+    color: #fade4b !important;
+  }
+}
+
+#root:has(> .dark) {
+  .error-link {
+    border: 1px solid white;
+    color: white;
+  }
+}
+
+#root:has(> .light) {
+  .error-link {
+    border: 1px solid black;
+    color: black;
   }
 }

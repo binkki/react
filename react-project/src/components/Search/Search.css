@@ -14,15 +14,10 @@
 #search-input {
   width: 200px;
   border: none;
-  border-bottom: 1px solid white;
-  color: white;
   background-color: transparent;
+  color: inherit;
   &:hover {
     cursor: text;
-  }
-  &:focus {
-    outline: none;
-    border-color: #fade4b;
   }
 }
 
@@ -32,11 +27,36 @@
   border: none;
   outline: none;
   background-color: transparent;
-  background-image: url(https://i.ibb.co/VYR8YyR/search.png);
   &:hover {
     cursor: pointer;
   }
   &:disabled {
     cursor: wait;
+  }
+}
+
+#root:has(> .dark) {
+  #search-input {
+    border-bottom: 1px solid white;
+    &:focus {
+      outline: none;
+      border-color: #fade4b;
+    }
+  }
+  .search-button {
+    background-image: url(https://i.ibb.co/VYR8YyR/search.png);
+  }
+}
+
+#root:has(> .light) {
+  #search-input {
+    border-bottom: 1px solid black;
+    &:focus {
+      outline: none;
+      border-color: #fade4b;
+    }
+  }
+  .search-button {
+    background-image: url(https://i.ibb.co/h2N2RXT/search-light.png);
   }
 }

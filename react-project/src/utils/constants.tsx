@@ -5,4 +5,4 @@ export const STORAGE_SEARCH = 'search_params';
 export const SEARCH_PLACEHOLDER = 'Search...';
 export const EMPTY_DATA = 'Nothing was found';
 export const ERROR_BUTTON_MESSAGE = 'Error Button was clicked';
-export const IMAGE404 = 'https://i.ibb.co/hc8LZtc/404.png';
+export const IMAGE404 = 'https://i.ibb.co/YBnw5C3/404.png';

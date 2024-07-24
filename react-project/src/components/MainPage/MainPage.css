@@ -7,7 +7,6 @@
 
 .main-container {
   min-height: calc(100vh - 120px);
-  color: white;
 }
 
 .main-container {
@@ -55,5 +54,31 @@
   .character-item {
     width: 200px;
     height: 310px;
+  }
+}
+
+.theme-button {
+  background-color: transparent;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#root:has(> .dark) {
+  .theme-button {
+    background-image: url(https://i.ibb.co/hFh0xC3/moon-2.png);
+  }
+}
+
+#root:has(> .light) {
+  .theme-button {
+    background-image: url(https://i.ibb.co/hChZDcs/sun.png);
   }
 }

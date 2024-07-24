@@ -16,3 +16,5 @@ export const isValidNumber = (testString: string) => {
   const testNumber = Number(testString);
   return !(isNaN(testNumber) || testNumber < 1);
 };
+
+export const getCurrentTheme = (isDarkTheme: boolean) => (isDarkTheme ? 'dark' : 'light');

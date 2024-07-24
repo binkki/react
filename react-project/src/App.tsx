@@ -3,6 +3,7 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainPage from './components/MainPage/MainPage';
 import NotFound from './components/NotFound/NotFound';
 import DetailsPage from './components/DetailsPage/DetailsPage';
+import { ThemeProvider } from './context/ThemeContext';
 
 export const Root = () => {
   return (
@@ -41,5 +42,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }

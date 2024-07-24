@@ -2,10 +2,9 @@
   margin-bottom: 10px;
   height: 40px;
   gap: 10px;
-  border: 1px solid white;
+  border: 1px solid;
   border-radius: 20px;
   &:hover {
-    border-color: #fade4b;
     cursor: default;
   }
 }
@@ -17,10 +16,13 @@
   align-content: center;
   border: none;
   outline: none;
-  color: white;
   background-color: transparent;
+  color: inherit;
+  &:hover {
+    cursor: pointer;
+  }
   &:disabled {
-    color: black;
+    color: transparent;
     cursor: default !important;
   }
 }
