@@ -9,7 +9,7 @@ import {
   isValidNumber,
 } from '../../utils/utils';
 import './DetailsPage.css';
-import Loader from '../Loader/Loader';
+import Loader from '../../components/Loader/Loader';
 
 const DetailsPage = () => {
   const location = useLocation();

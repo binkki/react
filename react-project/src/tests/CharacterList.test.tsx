@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import CharacterList from '../components/MainPage/CharacterList';
+import CharacterList from '../pages/MainPage/CharacterList';
 import { testCharacterList } from './testData';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { EMPTY_DATA } from '../utils/constants';

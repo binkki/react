@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Search from '../Search/Search';
-import Pagination from '../Pagination/Pagination';
+import Search from '../../components/Search/Search';
+import Pagination from '../../components/Pagination/Pagination';
 import { CharacterApiResponse } from '../../types';
 import { getCharacters } from '../../services/ApiService';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { getCurrentTheme, getPageIdFromPath, isValidNumber } from '../../utils/utils';
 import './MainPage.css';
-import Loader from '../Loader/Loader';
+import Loader from '../../components/Loader/Loader';
 import CharacterList from './CharacterList';
 import { ThemeContext } from '../../context/ThemeContext';
 

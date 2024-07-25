@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import MainPage from './components/MainPage/MainPage';
-import NotFound from './components/NotFound/NotFound';
-import DetailsPage from './components/DetailsPage/DetailsPage';
+import MainPage from './pages/MainPage/MainPage';
+import NotFound from './pages/NotFound/NotFound';
+import DetailsPage from './pages/DetailsPage/DetailsPage';
 import { ThemeProvider } from './context/ThemeContext';
 
 export const Root = () => {

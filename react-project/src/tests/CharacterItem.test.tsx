@@ -8,11 +8,11 @@ import {
   Navigate,
   RouterProvider,
 } from 'react-router-dom';
-import CharacterItem from '../components/MainPage/CharacterItem';
+import CharacterItem from '../pages/MainPage/CharacterItem';
 import { getCharacterImageUrl } from '../utils/utils';
-import DetailsPage from '../components/DetailsPage/DetailsPage';
+import DetailsPage from '../pages/DetailsPage/DetailsPage';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
-import MainPage from '../components/MainPage/MainPage';
+import MainPage from '../pages/MainPage/MainPage';
 import userEvent from '@testing-library/user-event';
 
 describe('Character Item Component', () => {
