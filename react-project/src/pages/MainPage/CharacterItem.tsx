@@ -21,11 +21,14 @@ const CharacterItem = (props: CharacterProps) => {
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
 
   useEffect(() => {
-    const characterUrl = getCharacterImageUrl(character.url);
-    setUrl(characterUrl);
     setBookmarked(
       bookmarkedCharacters.filter((x: Character) => x.name === character.name).length === 1
     );
+  }, [bookmarkedCharacters.length]);
+
+  useEffect(() => {
+    const characterUrl = getCharacterImageUrl(character.url);
+    setUrl(characterUrl);
   }, []);
 
   const openDetails = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

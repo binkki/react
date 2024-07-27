@@ -42,6 +42,9 @@ export const appSlice = createSlice({
         (x: Character) => x.name !== action.payload
       );
     },
+    removeAllBookmark: (state) => {
+      state.bookmarkedCharacters = [];
+    },
   },
 });
 
@@ -54,6 +57,7 @@ export const {
   setDetailsCharacter,
   addBookmark,
   removeBookmark,
+  removeAllBookmark,
 } = appSlice.actions;
 
 export default appSlice.reducer;
