@@ -30,4 +30,5 @@ export type AppSlice = {
   page: number;
   isMainLoading: boolean;
   isDetailsLoading: boolean;
+  isReload: boolean;
 };

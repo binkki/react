@@ -1,19 +1,16 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPage } from '../../store/slices/appSlice';
-import './Pagination.css';
+import { setPage, setReload } from '../../store/slices/appSlice';
 import { RootState } from '../../store';
+import './Pagination.css';
 
 type PaginationProps = {
   isNextPage: string | null;
   isPreviousPage: string | null;
-  reload: boolean;
-  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { isNextPage, isPreviousPage, reload, setReload } = props;
+  const { isNextPage, isPreviousPage } = props;
   const currentPage = useSelector((state: RootState) => state.app.page);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +18,7 @@ const Pagination = (props: PaginationProps) => {
   const changePage = (step: number) => {
     const newPage = currentPage + step;
     dispatch(setPage(newPage));
-    setReload(!reload);
+    dispatch(setReload());
     navigate(`/${newPage}`);
   };
 

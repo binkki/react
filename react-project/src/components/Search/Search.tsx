@@ -1,29 +1,24 @@
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { SEARCH_PLACEHOLDER } from '../../utils/constants';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { useNavigate } from 'react-router-dom';
-import './Search.css';
-import { useEffect, useState } from 'react';
-import React from 'react';
 import { RootState } from '../../store';
-import { useSelector } from 'react-redux';
+import { setReload } from '../../store/slices/appSlice';
+import './Search.css';
 
 type SearchFormFields = {
   search: string;
 };
 
-type SearchProps = {
-  reload: boolean;
-  setReload: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Search = (props: SearchProps) => {
-  const { reload, setReload } = props;
+const Search = () => {
   const { register, handleSubmit } = useForm<SearchFormFields>();
   const { localValue, setLocalValue } = useLocalStorage();
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const isDisabled = useSelector((state: RootState) => state.app.isMainLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setSearchValue(localValue);
@@ -31,7 +26,7 @@ const Search = (props: SearchProps) => {
 
   const submitSearch: SubmitHandler<SearchFormFields> = async (data) => {
     setLocalValue(data.search.trim());
-    setReload(!reload);
+    dispatch(setReload());
     navigate('/1');
   };
 

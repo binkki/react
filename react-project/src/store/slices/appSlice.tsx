@@ -5,6 +5,7 @@ const initialState: AppSlice = {
   page: 1,
   isMainLoading: false,
   isDetailsLoading: false,
+  isReload: false,
 };
 
 export const appSlice = createSlice({
@@ -20,9 +21,12 @@ export const appSlice = createSlice({
     setDetailLoading: (state, action) => {
       state.isDetailsLoading = action.payload;
     },
+    setReload: (state) => {
+      state.isReload = !state.isReload;
+    },
   },
 });
 
-export const { setPage, setMainLoading, setDetailLoading } = appSlice.actions;
+export const { setPage, setMainLoading, setDetailLoading, setReload } = appSlice.actions;
 
 export default appSlice.reducer;
