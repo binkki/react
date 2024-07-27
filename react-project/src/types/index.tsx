@@ -28,4 +28,6 @@ export type CharacterApiResponse = {
 
 export type AppSlice = {
   page: number;
+  isMainLoading: boolean;
+  isDetailsLoading: boolean;
 };

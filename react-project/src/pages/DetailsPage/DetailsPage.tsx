@@ -10,15 +10,19 @@ import {
 } from '../../utils/utils';
 import './DetailsPage.css';
 import Loader from '../../components/Loader/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setDetailLoading } from '../../store/slices/appSlice';
 
 const DetailsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [character, setCharacter] = useState<Character>();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.app.isDetailsLoading);
 
   useEffect(() => {
-    setLoading(true);
+    dispatch(setDetailLoading(true));
     if (!isValidNumber(getCharacterIdFromPath(location.pathname))) return navigate('/not-found');
     if (!isValidNumber(getPageIdFromPath(location.pathname))) return navigate('/not-found');
     const characterId = Number(getCharacterIdFromPath(location.pathname));
@@ -27,7 +31,7 @@ const DetailsPage = () => {
         navigate('/not-found');
       }
       setCharacter(value);
-      setLoading(false);
+      dispatch(setDetailLoading(false));
     });
   }, [location]);
 

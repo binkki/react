@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Search from '../../components/Search/Search';
 import Pagination from '../../components/Pagination/Pagination';
 import { CharacterApiResponse } from '../../types';
@@ -11,21 +11,22 @@ import './MainPage.css';
 import Loader from '../../components/Loader/Loader';
 import CharacterList from './CharacterList';
 import { ThemeContext } from '../../context/ThemeContext';
-import { setPage } from '../../store/slices/appSlice';
+import { setMainLoading, setPage } from '../../store/slices/appSlice';
+import { RootState } from '../../store';
 
 const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
-  const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { getLocalValue } = useLocalStorage();
   const darkTheme = useContext(ThemeContext);
   const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.app.isMainLoading);
 
   useEffect(() => {
     if (!isValidNumber(getPageIdFromPath(location.pathname))) return navigate('/not-found');
-    setLoading(true);
+    dispatch(setMainLoading(true));
     const currentPage = Number(getPageIdFromPath(location.pathname));
     const localSearch = getLocalValue() ?? '';
     getCharacters(currentPage, localSearch).then((value: CharacterApiResponse) => {
@@ -34,7 +35,7 @@ const MainPage = () => {
       }
       setCharacters(value);
       dispatch(setPage(currentPage));
-      setLoading(false);
+      dispatch(setMainLoading(false));
     });
   }, [reload]);
 
@@ -44,7 +45,7 @@ const MainPage = () => {
 
   return loading ? (
     <div className={`main-wrapper ${getCurrentTheme(darkTheme.theme)}`}>
-      <Search isDisabled={loading} reload={reload} setReload={setReload} />
+      <Search reload={reload} setReload={setReload} />
       <div className="main-container flex">
         <Loader />
       </div>

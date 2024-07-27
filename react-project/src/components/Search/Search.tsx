@@ -5,23 +5,25 @@ import { useNavigate } from 'react-router-dom';
 import './Search.css';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
 
 type SearchFormFields = {
   search: string;
 };
 
 type SearchProps = {
-  isDisabled?: boolean;
   reload: boolean;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Search = (props: SearchProps) => {
-  const { isDisabled, reload, setReload } = props;
+  const { reload, setReload } = props;
   const { register, handleSubmit } = useForm<SearchFormFields>();
   const { localValue, setLocalValue } = useLocalStorage();
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
+  const isDisabled = useSelector((state: RootState) => state.app.isMainLoading);
 
   useEffect(() => {
     setSearchValue(localValue);
