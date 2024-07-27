@@ -4,14 +4,10 @@ import { setPage, setReload } from '../../store/slices/appSlice';
 import { RootState } from '../../store';
 import './Pagination.css';
 
-type PaginationProps = {
-  isNextPage: string | null;
-  isPreviousPage: string | null;
-};
-
-const Pagination = (props: PaginationProps) => {
-  const { isNextPage, isPreviousPage } = props;
+const Pagination = () => {
   const currentPage = useSelector((state: RootState) => state.app.page);
+  const isNextPage = useSelector((state: RootState) => state.app.characters.next);
+  const isPreviousPage = useSelector((state: RootState) => state.app.characters.previous);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

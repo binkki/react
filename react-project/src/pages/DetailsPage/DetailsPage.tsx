@@ -13,6 +13,7 @@ import Loader from '../../components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { setDetailLoading, setDetailsCharacter } from '../../store/slices/appSlice';
+import { DEFAULT_CHARACTER_DETAILS } from '../../utils/constants';
 
 const DetailsPage = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const DetailsPage = () => {
     const characterId = Number(getCharacterIdFromPath(location.pathname));
     getCharacterById(characterId).then((value: Character) => {
       if (value.detail) {
+        dispatch(setDetailLoading(false));
         navigate('/not-found');
       }
       dispatch(setDetailsCharacter(value));
@@ -36,6 +38,7 @@ const DetailsPage = () => {
   }, [location]);
 
   const close = () => {
+    dispatch(setDetailsCharacter(DEFAULT_CHARACTER_DETAILS));
     const currentPage = Number(getPageIdFromPath(location.pathname));
     navigate(`/${currentPage}`);
   };

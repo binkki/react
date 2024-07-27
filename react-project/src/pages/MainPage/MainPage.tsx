@@ -31,6 +31,7 @@ const MainPage = () => {
     const localSearch = getLocalValue() ?? '';
     getCharacters(currentPage, localSearch).then((value: CharacterApiResponse) => {
       if (value.detail) {
+        dispatch(setMainLoading(false));
         navigate('/not-found');
       }
       dispatch(setCharacterApiResult(value));
@@ -55,15 +56,10 @@ const MainPage = () => {
       <button className="theme-button" onClick={changeTheme} />
       <Search />
       <div className="main-container flex">
-        <CharacterList characters={characters?.results ?? []} />
+        <CharacterList />
         <Outlet />
       </div>
-      {characters?.results.length !== 0 && (
-        <Pagination
-          isNextPage={characters?.next ?? null}
-          isPreviousPage={characters?.previous ?? null}
-        />
-      )}
+      {characters && characters.results.length !== 0 && <Pagination />}
     </div>
   );
 };

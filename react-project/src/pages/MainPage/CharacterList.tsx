@@ -1,13 +1,11 @@
+import { useSelector } from 'react-redux';
+import CharacterItem from './CharacterItem';
 import { Character } from '../../types';
 import { EMPTY_DATA } from '../../utils/constants';
-import CharacterItem from './CharacterItem';
+import { RootState } from '../../store';
 
-type CharacterListProps = {
-  characters: Character[];
-};
-
-const CharacterList = (props: CharacterListProps) => {
-  const { characters } = props;
+const CharacterList = () => {
+  const characters = useSelector((state: RootState) => state.app.characters.results);
 
   return (
     <div className="characters-flex flex">
