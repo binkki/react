@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Character } from '../../types';
 import { getCharacterById } from '../../services/ApiService';
 import {
@@ -12,14 +12,14 @@ import './DetailsPage.css';
 import Loader from '../../components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setDetailLoading } from '../../store/slices/appSlice';
+import { setDetailLoading, setDetailsCharacter } from '../../store/slices/appSlice';
 
 const DetailsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [character, setCharacter] = useState<Character>();
   const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.app.isDetailsLoading);
+  const character = useSelector((state: RootState) => state.app.detailsCharacter);
 
   useEffect(() => {
     dispatch(setDetailLoading(true));
@@ -30,7 +30,7 @@ const DetailsPage = () => {
       if (value.detail) {
         navigate('/not-found');
       }
-      setCharacter(value);
+      dispatch(setDetailsCharacter(value));
       dispatch(setDetailLoading(false));
     });
   }, [location]);

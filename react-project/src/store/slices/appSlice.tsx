@@ -13,6 +13,24 @@ const initialState: AppSlice = {
     results: [],
     detail: '',
   },
+  detailsCharacter: {
+    name: '',
+    height: '',
+    eye_color: '',
+    hair_color: '',
+    skin_color: '',
+    mass: '',
+    birth_year: '',
+    gender: '',
+    homeworld: '',
+    films: [''],
+    vehicles: [''],
+    species: [''],
+    starships: [''],
+    created: '',
+    edited: '',
+    url: '',
+  },
 };
 
 export const appSlice = createSlice({
@@ -34,10 +52,19 @@ export const appSlice = createSlice({
     setCharacterApiResult: (state, action) => {
       state.characters = action.payload;
     },
+    setDetailsCharacter: (state, action) => {
+      state.detailsCharacter = action.payload;
+    },
   },
 });
 
-export const { setPage, setMainLoading, setDetailLoading, setReload, setCharacterApiResult } =
-  appSlice.actions;
+export const {
+  setPage,
+  setMainLoading,
+  setDetailLoading,
+  setReload,
+  setCharacterApiResult,
+  setDetailsCharacter,
+} = appSlice.actions;
 
 export default appSlice.reducer;
