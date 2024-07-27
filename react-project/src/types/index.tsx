@@ -31,4 +31,5 @@ export type AppSlice = {
   isMainLoading: boolean;
   isDetailsLoading: boolean;
   isReload: boolean;
+  characters: CharacterApiResponse;
 };
