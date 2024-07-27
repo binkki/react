@@ -1,0 +1,20 @@
+.flyout {
+  position: fixed;
+  z-index: 100;
+  bottom: 60px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#root:has(> .dark) {
+  .flyout {
+    border: 1px solid white;
+  }
+}
+
+#root:has(> .light) {
+  .flyout {
+    border: 1px solid black;
+  }
+}

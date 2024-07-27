@@ -13,6 +13,7 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { setMainLoading, setPage, setCharacterApiResult } from '../../store/slices/appSlice';
 import { RootState } from '../../store';
 import './MainPage.css';
+import Flyout from '../../components/Flyout/Flyout';
 
 const MainPage = () => {
   const location = useLocation();
@@ -60,6 +61,7 @@ const MainPage = () => {
         <Outlet />
       </div>
       {characters && characters.results.length !== 0 && <Pagination />}
+      <Flyout />
     </div>
   );
 };
