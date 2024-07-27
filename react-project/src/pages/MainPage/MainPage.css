@@ -82,3 +82,19 @@
     background-image: url(https://i.ibb.co/hChZDcs/sun.png);
   }
 }
+
+.bookmark-button {
+  background-image: url(https://i.ibb.co/b711hPp/bookmark.png);
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.starred {
+  background-image: url(https://i.ibb.co/vzqPTs1/bookmark-selected.png);
+}
