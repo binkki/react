@@ -1,21 +1,26 @@
-import { useNavigate } from 'react-router-dom';
-import './Pagination.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPage } from '../../store/slices/appSlice';
+import './Pagination.css';
+import { RootState } from '../../store';
 
 type PaginationProps = {
-  currentPage: number;
-  nextPage: string | null;
-  previousPage: string | null;
+  isNextPage: string | null;
+  isPreviousPage: string | null;
   reload: boolean;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { currentPage, nextPage, previousPage, reload, setReload } = props;
+  const { isNextPage, isPreviousPage, reload, setReload } = props;
+  const currentPage = useSelector((state: RootState) => state.app.page);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const changePage = (step: number) => {
     const newPage = currentPage + step;
+    dispatch(setPage(newPage));
     setReload(!reload);
     navigate(`/${newPage}`);
   };
@@ -26,7 +31,7 @@ const Pagination = (props: PaginationProps) => {
         type="submit"
         className="pagination-item clickable"
         value="<"
-        disabled={previousPage ? false : true}
+        disabled={isPreviousPage ? false : true}
         onClick={() => changePage(-1)}
       />
       <span className="pagination-item" data-testid="pagination-page">
@@ -36,7 +41,7 @@ const Pagination = (props: PaginationProps) => {
         type="submit"
         className="pagination-item clickable"
         value=">"
-        disabled={nextPage ? false : true}
+        disabled={isNextPage ? false : true}
         onClick={() => changePage(1)}
       />
     </div>

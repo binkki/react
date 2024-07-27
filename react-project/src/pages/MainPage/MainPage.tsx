@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Search from '../../components/Search/Search';
 import Pagination from '../../components/Pagination/Pagination';
 import { CharacterApiResponse } from '../../types';
@@ -10,16 +11,17 @@ import './MainPage.css';
 import Loader from '../../components/Loader/Loader';
 import CharacterList from './CharacterList';
 import { ThemeContext } from '../../context/ThemeContext';
+import { setPage } from '../../store/slices/appSlice';
 
 const MainPage = () => {
   const [characters, setCharacters] = useState<CharacterApiResponse>();
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { getLocalValue } = useLocalStorage();
   const darkTheme = useContext(ThemeContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isValidNumber(getPageIdFromPath(location.pathname))) return navigate('/not-found');
@@ -31,7 +33,7 @@ const MainPage = () => {
         navigate('/not-found');
       }
       setCharacters(value);
-      setPage(currentPage);
+      dispatch(setPage(currentPage));
       setLoading(false);
     });
   }, [reload]);
@@ -57,9 +59,8 @@ const MainPage = () => {
       </div>
       {characters?.results.length !== 0 && (
         <Pagination
-          currentPage={page}
-          nextPage={characters?.next ?? null}
-          previousPage={characters?.previous ?? null}
+          isNextPage={characters?.next ?? null}
+          isPreviousPage={characters?.previous ?? null}
           reload={reload}
           setReload={setReload}
         />

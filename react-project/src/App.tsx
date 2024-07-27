@@ -4,6 +4,8 @@ import MainPage from './pages/MainPage/MainPage';
 import NotFound from './pages/NotFound/NotFound';
 import DetailsPage from './pages/DetailsPage/DetailsPage';
 import { ThemeProvider } from './context/ThemeContext';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 export const Root = () => {
   return (
@@ -44,7 +46,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </ThemeProvider>
   );
 }
