@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AppSlice } from '../../types';
+import { AppSlice, Character } from '../../types';
 import { DEFAULT_CHARACTER_DETAILS, DEFAULT_CHARACTERS, DEFAULT_PAGE } from '../../utils/constants';
 
 const initialState: AppSlice = {
@@ -9,6 +9,7 @@ const initialState: AppSlice = {
   isReload: false,
   characters: DEFAULT_CHARACTERS,
   detailsCharacter: DEFAULT_CHARACTER_DETAILS,
+  bookmarkedCharacters: [],
 };
 
 export const appSlice = createSlice({
@@ -33,6 +34,14 @@ export const appSlice = createSlice({
     setDetailsCharacter: (state, action) => {
       state.detailsCharacter = action.payload;
     },
+    addBookmark: (state, action) => {
+      state.bookmarkedCharacters.push(action.payload);
+    },
+    removeBookmark: (state, action) => {
+      state.bookmarkedCharacters = state.bookmarkedCharacters.filter(
+        (x: Character) => x.name !== action.payload
+      );
+    },
   },
 });
 
@@ -43,6 +52,8 @@ export const {
   setReload,
   setCharacterApiResult,
   setDetailsCharacter,
+  addBookmark,
+  removeBookmark,
 } = appSlice.actions;
 
 export default appSlice.reducer;

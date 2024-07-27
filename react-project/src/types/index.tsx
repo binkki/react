@@ -33,4 +33,5 @@ export type AppSlice = {
   isReload: boolean;
   characters: CharacterApiResponse;
   detailsCharacter: Character;
+  bookmarkedCharacters: Character[];
 };

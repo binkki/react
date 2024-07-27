@@ -1,7 +1,10 @@
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Character } from '../../types';
 import { getCharacterIdFromUrl, getCharacterImageUrl, getPageIdFromPath } from '../../utils/utils';
-import { useEffect, useRef, useState } from 'react';
+import { addBookmark, removeBookmark } from '../../store/slices/appSlice';
+import { RootState } from '../../store';
 
 type CharacterProps = {
   character: Character;
@@ -14,10 +17,15 @@ const CharacterItem = (props: CharacterProps) => {
   const [url, setUrl] = useState('');
   const [bookmarked, setBookmarked] = useState(false);
   const bookmarkRef = useRef(null);
+  const dispatch = useDispatch();
+  const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
 
   useEffect(() => {
     const characterUrl = getCharacterImageUrl(character.url);
     setUrl(characterUrl);
+    setBookmarked(
+      bookmarkedCharacters.filter((x: Character) => x.name === character.name).length === 1
+    );
   }, []);
 
   const openDetails = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -31,6 +39,7 @@ const CharacterItem = (props: CharacterProps) => {
   };
 
   const updateBookmarks = () => {
+    dispatch(bookmarked ? removeBookmark(character.name) : addBookmark(character));
     setBookmarked(!bookmarked);
   };
 
