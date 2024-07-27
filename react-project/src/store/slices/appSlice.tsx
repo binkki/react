@@ -1,36 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppSlice } from '../../types';
+import { DEFAULT_CHARACTER_DETAILS, DEFAULT_CHARACTERS, DEFAULT_PAGE } from '../../utils/constants';
 
 const initialState: AppSlice = {
-  page: 1,
+  page: DEFAULT_PAGE,
   isMainLoading: false,
   isDetailsLoading: false,
   isReload: false,
-  characters: {
-    count: 0,
-    next: null,
-    previous: null,
-    results: [],
-    detail: '',
-  },
-  detailsCharacter: {
-    name: '',
-    height: '',
-    eye_color: '',
-    hair_color: '',
-    skin_color: '',
-    mass: '',
-    birth_year: '',
-    gender: '',
-    homeworld: '',
-    films: [''],
-    vehicles: [''],
-    species: [''],
-    starships: [''],
-    created: '',
-    edited: '',
-    url: '',
-  },
+  characters: DEFAULT_CHARACTERS,
+  detailsCharacter: DEFAULT_CHARACTER_DETAILS,
 };
 
 export const appSlice = createSlice({
