@@ -5,10 +5,6 @@ import { removeAllBookmark } from '../../store/slices/appSlice';
 import './Flyout.css';
 import { generateCSV, generateDownloadFileName } from '../../utils/utils';
 
-export const linkClick = (link: HTMLAnchorElement) => {
-  link.click();
-};
-
 const Flyout = () => {
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
   const [counter, setCounter] = useState(0);
@@ -33,7 +29,7 @@ const Flyout = () => {
       new Blob([generateCSV(bookmarkedCharacters)], { type: 'text/csv' })
     );
     await setLinkHref(newLink);
-    linkClick(linkRef.current! as HTMLAnchorElement);
+    (linkRef.current! as HTMLAnchorElement).click();
   };
 
   return (
