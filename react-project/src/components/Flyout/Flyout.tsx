@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { RootState } from '../../store';
 import { removeAllBookmark } from '../../store/slices/appSlice';
-import './Flyout.css';
 import { generateCSV, generateDownloadFileName } from '../../utils/utils';
+import './Flyout.css';
 
 const Flyout = () => {
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);

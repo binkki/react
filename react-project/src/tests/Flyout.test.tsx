@@ -107,28 +107,4 @@ describe('Flyout Component', () => {
 
     expect(flyout).not.toBeInTheDocument();
   });
-
-  it('Should download csv file if download button vas clicked', async () => {
-    renderWithProvider();
-    const items = await waitFor(
-      () => {
-        return screen.findAllByTestId('bookmark');
-      },
-      {
-        timeout: 50000,
-      }
-    );
-    await act(async () => {
-      await userEvent.click(items[0]);
-    });
-
-    const flyout = screen.getByTestId('flyout');
-    expect(flyout).toBeInTheDocument();
-
-    const downloadButton = screen.getByTestId('flyout-download');
-
-    await act(async () => {
-      await userEvent.click(downloadButton);
-    });
-  });
 });

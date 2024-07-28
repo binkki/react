@@ -28,10 +28,8 @@ export type CharacterApiResponse = {
 
 export type AppSlice = {
   page: number;
-  isMainLoading: boolean;
-  isDetailsLoading: boolean;
-  isReload: boolean;
   characters: CharacterApiResponse;
-  detailsCharacter: Character;
   bookmarkedCharacters: Character[];
+  detailsCharacterId: number;
+  searchValue: string;
 };

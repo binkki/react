@@ -1,16 +1,17 @@
 import { useSelector } from 'react-redux';
-import CharacterItem from './CharacterItem';
 import { Character } from '../../types';
 import { EMPTY_DATA } from '../../utils/constants';
 import { RootState } from '../../store';
+import CharacterItem from './CharacterItem';
 
 const CharacterList = () => {
-  const characters = useSelector((state: RootState) => state.app.characters.results);
+  const characters = useSelector((state: RootState) => state.app.characters);
 
   return (
     <div className="characters-flex flex">
-      {characters && characters.map((x: Character) => <CharacterItem key={x.name} character={x} />)}
-      {!characters || (!characters?.length && <span>{EMPTY_DATA}</span>)}
+      {characters?.results &&
+        characters.results.map((x: Character) => <CharacterItem key={x.name} character={x} />)}
+      {!characters?.results || (!characters.results?.length && <span>{EMPTY_DATA}</span>)}
     </div>
   );
 };

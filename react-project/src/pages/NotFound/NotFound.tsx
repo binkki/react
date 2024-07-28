@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { IMAGE404 } from '../../utils/constants';
-import './NotFound.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 import { getCurrentTheme } from '../../utils/utils';
+import { IMAGE404 } from '../../utils/constants';
+import './NotFound.css';
 
 export default function NotFoundPage() {
   const darkTheme = useContext(ThemeContext);

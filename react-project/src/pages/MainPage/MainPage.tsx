@@ -1,66 +1,71 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from '../../components/Search/Search';
 import Pagination from '../../components/Pagination/Pagination';
 import Loader from '../../components/Loader/Loader';
+import Flyout from '../../components/Flyout/Flyout';
 import CharacterList from './CharacterList';
-import { CharacterApiResponse } from '../../types';
-import { getCharacters } from '../../services/ApiService';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { getCurrentTheme, getPageIdFromPath, isValidNumber } from '../../utils/utils';
 import { ThemeContext } from '../../context/ThemeContext';
-import { setMainLoading, setPage, setCharacterApiResult } from '../../store/slices/appSlice';
+import * as utils from '../../utils/utils';
+import { setCharacterApiResult, setPage } from '../../store/slices/appSlice';
+import { useGetCharacterListQuery } from '../../store/api/characterApi';
 import { RootState } from '../../store';
 import './MainPage.css';
-import Flyout from '../../components/Flyout/Flyout';
 
 const MainPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { getLocalValue } = useLocalStorage();
-  const darkTheme = useContext(ThemeContext);
   const dispatch = useDispatch();
-  const loading = useSelector((state: RootState) => state.app.isMainLoading);
-  const reload = useSelector((state: RootState) => state.app.isReload);
-  const characters = useSelector((state: RootState) => state.app.characters);
+  const darkTheme = useContext(ThemeContext);
+
+  const page = useSelector((state: RootState) => state.app.page);
+  const search = useSelector((state: RootState) => state.app.searchValue);
+  const { data, isLoading, error, refetch } = useGetCharacterListQuery({ search, page });
+  const [loading, setLoadng] = useState(false);
 
   useEffect(() => {
-    if (!isValidNumber(getPageIdFromPath(location.pathname))) return navigate('/not-found');
-    dispatch(setMainLoading(true));
-    const currentPage = Number(getPageIdFromPath(location.pathname));
-    const localSearch = getLocalValue() ?? '';
-    getCharacters(currentPage, localSearch).then((value: CharacterApiResponse) => {
-      if (value.detail) {
-        dispatch(setMainLoading(false));
-        navigate('/not-found');
-      }
-      dispatch(setCharacterApiResult(value));
-      dispatch(setPage(currentPage));
-      dispatch(setMainLoading(false));
-    });
-  }, [reload]);
+    dispatch(setPage(Number(utils.getPageIdFromPath(location.pathname))));
+  }, [location]);
+
+  useEffect(() => {
+    if (data !== undefined) {
+      dispatch(setCharacterApiResult(data));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!utils.isValidNumber(utils.getPageIdFromPath(location.pathname)) || error) {
+      return navigate('/not-found');
+    } else {
+      setLoadng(true);
+      refetch().then(() => {
+        dispatch(setCharacterApiResult(data));
+        setLoadng(false);
+      });
+    }
+  }, [search, refetch, error]);
 
   const changeTheme = () => {
     darkTheme.setTheme();
   };
 
-  return loading ? (
-    <div className={`main-wrapper ${getCurrentTheme(darkTheme.theme)}`}>
+  return isLoading || loading ? (
+    <div className={`main-wrapper ${utils.getCurrentTheme(darkTheme.theme)}`}>
       <Search />
       <div className="main-container flex">
         <Loader />
       </div>
     </div>
   ) : (
-    <div className={`main-wrapper flex ${getCurrentTheme(darkTheme.theme)}`}>
+    <div className={`main-wrapper flex ${utils.getCurrentTheme(darkTheme.theme)}`}>
       <button className="theme-button" onClick={changeTheme} />
       <Search />
       <div className="main-container flex">
         <CharacterList />
         <Outlet />
       </div>
-      {characters && characters.results.length !== 0 && <Pagination />}
+      {data && data.results.length > 0 && <Pagination />}
       <Flyout />
     </div>
   );

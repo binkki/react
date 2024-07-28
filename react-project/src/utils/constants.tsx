@@ -6,24 +6,6 @@ export const SEARCH_PLACEHOLDER = 'Search...';
 export const EMPTY_DATA = 'Nothing was found';
 export const ERROR_BUTTON_MESSAGE = 'Error Button was clicked';
 export const IMAGE404 = 'https://i.ibb.co/YBnw5C3/404.png';
-export const DEFAULT_CHARACTER_DETAILS = {
-  name: '',
-  height: '',
-  eye_color: '',
-  hair_color: '',
-  skin_color: '',
-  mass: '',
-  birth_year: '',
-  gender: '',
-  homeworld: '',
-  films: [''],
-  vehicles: [''],
-  species: [''],
-  starships: [''],
-  created: '',
-  edited: '',
-  url: '',
-};
 export const DEFAULT_CHARACTERS = {
   count: 0,
   next: null,

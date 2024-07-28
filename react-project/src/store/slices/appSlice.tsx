@@ -1,15 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppSlice, Character } from '../../types';
-import { DEFAULT_CHARACTER_DETAILS, DEFAULT_CHARACTERS, DEFAULT_PAGE } from '../../utils/constants';
+import { DEFAULT_CHARACTERS, DEFAULT_PAGE, STORAGE_SEARCH } from '../../utils/constants';
 
 const initialState: AppSlice = {
   page: DEFAULT_PAGE,
-  isMainLoading: false,
-  isDetailsLoading: false,
-  isReload: false,
   characters: DEFAULT_CHARACTERS,
-  detailsCharacter: DEFAULT_CHARACTER_DETAILS,
   bookmarkedCharacters: [],
+  detailsCharacterId: 1,
+  searchValue: localStorage.getItem(STORAGE_SEARCH) ?? '',
 };
 
 export const appSlice = createSlice({
@@ -19,20 +17,8 @@ export const appSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setMainLoading: (state, action) => {
-      state.isMainLoading = action.payload;
-    },
-    setDetailLoading: (state, action) => {
-      state.isDetailsLoading = action.payload;
-    },
-    setReload: (state) => {
-      state.isReload = !state.isReload;
-    },
     setCharacterApiResult: (state, action) => {
       state.characters = action.payload;
-    },
-    setDetailsCharacter: (state, action) => {
-      state.detailsCharacter = action.payload;
     },
     addBookmark: (state, action) => {
       state.bookmarkedCharacters.push(action.payload);
@@ -45,19 +31,23 @@ export const appSlice = createSlice({
     removeAllBookmark: (state) => {
       state.bookmarkedCharacters = [];
     },
+    setDetailsCharacterId: (state, action) => {
+      state.detailsCharacterId = action.payload;
+    },
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload;
+    },
   },
 });
 
 export const {
   setPage,
-  setMainLoading,
-  setDetailLoading,
-  setReload,
   setCharacterApiResult,
-  setDetailsCharacter,
   addBookmark,
   removeBookmark,
   removeAllBookmark,
+  setDetailsCharacterId,
+  setSearchValue,
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -3,7 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Character } from '../../types';
 import { getCharacterIdFromUrl, getCharacterImageUrl, getPageIdFromPath } from '../../utils/utils';
-import { addBookmark, removeBookmark } from '../../store/slices/appSlice';
+import {
+  addBookmark,
+  removeBookmark,
+  setDetailsCharacterId,
+  setPage,
+} from '../../store/slices/appSlice';
 import { RootState } from '../../store';
 
 type CharacterProps = {
@@ -14,10 +19,10 @@ const CharacterItem = (props: CharacterProps) => {
   const { character } = props;
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [url, setUrl] = useState('');
   const [bookmarked, setBookmarked] = useState(false);
   const bookmarkRef = useRef(null);
-  const dispatch = useDispatch();
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
 
   useEffect(() => {
@@ -37,6 +42,8 @@ const CharacterItem = (props: CharacterProps) => {
     } else {
       const currentPage = Number(getPageIdFromPath(location.pathname));
       const currentCharacter = getCharacterIdFromUrl(character.url);
+      dispatch(setDetailsCharacterId(currentCharacter));
+      dispatch(setPage(currentPage));
       navigate(`/${currentPage}/${currentCharacter}`);
     }
   };
