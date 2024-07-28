@@ -45,6 +45,7 @@ const Search = () => {
       />
       <button
         className={isDisabled ? 'loading search-button' : 'search-button'}
+        data-testid="search-button"
         disabled={isDisabled ?? false}
       />
     </form>
