@@ -55,7 +55,11 @@ const CharacterItem = (props: CharacterProps) => {
       <img src={url} className="character-image" />
       <div className="flex">
         <span>{character.name}</span>
-        <button ref={bookmarkRef} className={`bookmark-button ${bookmarked ? 'starred' : ''}`} />
+        <button
+          ref={bookmarkRef}
+          className={`bookmark-button ${bookmarked ? 'starred' : ''}`}
+          data-testid="bookmark"
+        />
       </div>
     </div>
   );

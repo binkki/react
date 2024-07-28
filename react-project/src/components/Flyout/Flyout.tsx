@@ -5,6 +5,10 @@ import { removeAllBookmark } from '../../store/slices/appSlice';
 import './Flyout.css';
 import { generateCSV, generateDownloadFileName } from '../../utils/utils';
 
+export const linkClick = (link: HTMLAnchorElement) => {
+  link.click();
+};
+
 const Flyout = () => {
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
   const [counter, setCounter] = useState(0);
@@ -29,7 +33,7 @@ const Flyout = () => {
       new Blob([generateCSV(bookmarkedCharacters)], { type: 'text/csv' })
     );
     await setLinkHref(newLink);
-    (linkRef.current! as HTMLAnchorElement).click();
+    linkClick(linkRef.current! as HTMLAnchorElement);
   };
 
   return (
@@ -39,16 +43,18 @@ const Flyout = () => {
           ref={linkRef}
           href={`${linkHref}`}
           download={generateDownloadFileName(bookmarkedCharacters.length)}
+          data-testid="flyout-link"
         />
-        <div className="flex flyout">
+        <div className="flex flyout" data-testid="flyout">
           <span>You select {counter} characters</span>
           <button
             className="flyout-button"
+            data-testid="flyout-download"
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => download(e)}
           >
             Download
           </button>
-          <button className="flyout-button" onClick={removeAll}>
+          <button className="flyout-button" onClick={removeAll} data-testid="flyout-unselect">
             Unselect all
           </button>
         </div>
