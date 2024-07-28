@@ -12,11 +12,11 @@ const DetailsPage = () => {
   const { data, error, isLoading } = useGetCharacterQuery({ id: characterId });
 
   useEffect(() => {
-    if (!utils.isValidNumber(utils.getCharacterIdFromPath(location.pathname)))
-      return navigate('/not-found');
-    if (!utils.isValidNumber(utils.getPageIdFromPath(location.pathname)))
-      return navigate('/not-found');
-    if (error) {
+    if (
+      !utils.isValidNumber(utils.getCharacterIdFromPath(location.pathname)) ||
+      !utils.isValidNumber(utils.getPageIdFromPath(location.pathname)) ||
+      error
+    ) {
       return navigate('/not-found');
     }
   }, [error]);
