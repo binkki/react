@@ -5,7 +5,6 @@ body {
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: black;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
@@ -37,4 +36,16 @@ body {
     cursor: pointer;
     transform: scale(1.05);
   }
+}
+
+.dark,
+#root:has(> .dark) {
+  background-color: black;
+  color: white;
+}
+
+.light,
+#root:has(> .light) {
+  background-color: white;
+  color: black;
 }

@@ -15,3 +15,15 @@
     transform: rotate(360deg);
   }
 }
+
+#root:has(> .dark) {
+  .loader {
+    background-image: url(https://i.ibb.co/kKJ9CVr/loader.png);
+  }
+}
+
+#root:has(> .light) {
+  .loader {
+    background-image: url(https://i.ibb.co/St8xpg9/loader-light.png);
+  }
+}
