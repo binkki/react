@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { RootState } from '../../store';
 import { removeAllBookmark } from '../../store/slices/appSlice';
 import './Flyout.css';
-import { generateDownloadDataLink, generateDownloadFileName } from '../../utils/utils';
+import { generateCSV, generateDownloadFileName } from '../../utils/utils';
 
 const Flyout = () => {
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
@@ -25,7 +25,10 @@ const Flyout = () => {
     if (!linkRef.current || bookmarkedCharacters.length < 1) {
       return;
     }
-    await setLinkHref(generateDownloadDataLink(bookmarkedCharacters));
+    const newLink = URL.createObjectURL(
+      new Blob([generateCSV(bookmarkedCharacters)], { type: 'text/csv' })
+    );
+    await setLinkHref(newLink);
     (linkRef.current! as HTMLAnchorElement).click();
   };
 
