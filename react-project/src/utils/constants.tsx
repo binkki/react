@@ -32,3 +32,4 @@ export const DEFAULT_CHARACTERS = {
   detail: '',
 };
 export const DEFAULT_PAGE = 1;
+export const END_OF_STRING = `\r\n`;

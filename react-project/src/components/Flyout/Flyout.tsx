@@ -1,30 +1,55 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RootState } from '../../store';
 import { removeAllBookmark } from '../../store/slices/appSlice';
 import './Flyout.css';
+import { generateDownloadDataLink, generateDownloadFileName } from '../../utils/utils';
 
 const Flyout = () => {
   const bookmarkedCharacters = useSelector((state: RootState) => state.app.bookmarkedCharacters);
   const [counter, setCounter] = useState(0);
   const dispatch = useDispatch();
+  const linkRef = useRef(null);
+  const [linkHref, setLinkHref] = useState('');
 
   useEffect(() => {
     setCounter(bookmarkedCharacters.length);
-  });
+  }, [bookmarkedCharacters.length]);
 
   const removeAll = () => {
     dispatch(removeAllBookmark());
   };
 
+  const download = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (!linkRef.current || bookmarkedCharacters.length < 1) {
+      return;
+    }
+    await setLinkHref(generateDownloadDataLink(bookmarkedCharacters));
+    (linkRef.current! as HTMLAnchorElement).click();
+  };
+
   return (
     counter > 0 && (
-      <div className="flex flyout">
-        <p>You select {counter} characters</p>
-        <button className="flyout-button" onClick={removeAll}>
-          Unselect all
-        </button>
-      </div>
+      <>
+        <a
+          ref={linkRef}
+          href={`${linkHref}`}
+          download={generateDownloadFileName(bookmarkedCharacters.length)}
+        />
+        <div className="flex flyout">
+          <span>You select {counter} characters</span>
+          <button
+            className="flyout-button"
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => download(e)}
+          >
+            Download
+          </button>
+          <button className="flyout-button" onClick={removeAll}>
+            Unselect all
+          </button>
+        </div>
+      </>
     )
   );
 };
