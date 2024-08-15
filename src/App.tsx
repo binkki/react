@@ -1,13 +1,29 @@
-import './App.css';
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import MainPage from "./pages/MainPage/MainPage";
+import UncontrolledFormPage from "./pages/UncontrolledFormPage/UncontrolledFormPage";
+import ReactHookFormPage from "./pages/ReactHookFormPage/ReactHookFormPage";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MainPage />,
+  },
+  {
+    path: '/uncontrolled-form',
+    element: <UncontrolledFormPage />,
+  },
+  {
+    path: '/react-hook-form',
+    element: <ReactHookFormPage />,
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" replace />,
+  },
+]);
+
+export default function App() {
   return (
-    <>
-      <div>
-        <h1>Hello World</h1>
-      </div>
-    </>
+    <RouterProvider router={router} />
   );
 }
-
-export default App;
