@@ -94,13 +94,15 @@ const ReactHookForm = () => {
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        <select id="rhf-country" {...register('country')}>
+        <input type="text" id="country" list="countryList" {...register('country')} />
+        <datalist id="countryList">
           {countries.map((optionCountry: string, _) => (
             <option key={_} value={optionCountry}>
               {optionCountry}
             </option>
           ))}
-        </select>
+        </datalist>
+        {errors.country && <span className="error">{errors.country.message}</span>}
         <input id="rhf-image" type="file" {...register('image')} />
         {errors.image && <span className="error">{errors.image.message}</span>}
         <div>

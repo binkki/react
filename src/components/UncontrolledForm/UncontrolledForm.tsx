@@ -22,7 +22,7 @@ const UncontrolledForm = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCopyRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLSelectElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
   const termsRef = useRef<HTMLInputElement>(null);
   const countries = useSelector((state: RootState) => state.app.countries);
@@ -113,13 +113,15 @@ const UncontrolledForm = () => {
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        <select id="country" ref={countryRef}>
+        <input type="text" id="country" list="countryList" ref={countryRef} />
+        <datalist id="countryList">
           {countries.map((optionCountry: string, _) => (
             <option key={_} value={optionCountry}>
               {optionCountry}
             </option>
           ))}
-        </select>
+        </datalist>
+        {errors.country && <span className="error">{errors.country}</span>}
         <input id="image" type="file" ref={imageRef} />
         {errors.image && <span className="error">{errors.image}</span>}
         <div>

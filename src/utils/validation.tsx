@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import { FormErrors } from '../types';
+import { contriesList } from './constants';
 
 export const schema = yup.object().shape({
   name: yup
@@ -27,7 +28,10 @@ export const schema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password')], 'Passwords must match')
     .required('Please repeat password again'),
-  country: yup.string().required('Country is required'),
+  country: yup
+    .string()
+    .oneOf(contriesList, 'Enter a valid country')
+    .required('Country is required'),
   gender: yup.string().required('Gender is required'),
   terms: yup
     .boolean()
