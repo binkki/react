@@ -236,4 +236,26 @@ export const defaultAppSliceValue = {
     'Zambia',
     'Zimbabwe',
   ],
+  password: '',
+  password_copy: '',
+};
+
+export const textUpperPattern = {
+  regex: /(?=.*[A-Z])/,
+  error: 'this field must contain at least one uppercase character A-Z',
+};
+
+export const textLowerPattern = {
+  regex: /(?=.*[a-z])/,
+  error: 'this field must contain at least one lovercase character a-z',
+};
+
+export const textNumberPattern = {
+  regex: /(?=.*[0-9])/,
+  error: 'this field must contain at least one number 0-9',
+};
+
+export const textSymbolPattern = {
+  regex: /(?=.*[!@#$%^&*])/,
+  error: 'this field must contain at least one of these special symbols !@#$%^&*',
 };

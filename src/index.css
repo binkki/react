@@ -48,3 +48,33 @@ button:hover {
 .form-image {
   width: 300px;
 }
+
+.strength-transparent {
+  color: transparent;
+  display: none;
+}
+
+.strength-orange,
+.strength-red,
+.strength-green {
+  border: none;
+  outline: none;
+}
+
+.strength-red {
+  background-color: red;
+  height: 3px;
+  width: 33%;
+}
+
+.strength-orange {
+  background-color: orange;
+  height: 3px;
+  width: 66%;
+}
+
+.strength-green {
+  background-color: green;
+  height: 3px;
+  width: 100%;
+}

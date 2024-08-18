@@ -14,8 +14,15 @@ const appSlice = createSlice({
     addReactHookFormResult(state, action) {
       state.reacthookformResults.push(action.payload);
     },
+    setPassword(state, action) {
+      state.password = action.payload;
+    },
+    setPasswordCopy(state, action) {
+      state.password_copy = action.payload;
+    },
   },
 });
 
-export const { addUncontrolledResult, addReactHookFormResult } = appSlice.actions;
+export const { addUncontrolledResult, addReactHookFormResult, setPassword, setPasswordCopy } =
+  appSlice.actions;
 export default appSlice.reducer;

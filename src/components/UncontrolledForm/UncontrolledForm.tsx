@@ -1,12 +1,17 @@
-import { FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/index.tsx';
-import { addUncontrolledResult } from '../../store/slices/appSlice.tsx';
+import {
+  addUncontrolledResult,
+  setPassword,
+  setPasswordCopy,
+} from '../../store/slices/appSlice.tsx';
 import { convertImage } from '../../utils/utils.tsx';
 import { FormErrors } from '../../types/index.tsx';
 import { getYupErrors, schema } from '../../utils/validation.tsx';
 import { ValidationError } from 'yup';
+import PasswordStrength from '../Form/PasswordStrength.tsx';
 
 const UncontrolledForm = () => {
   const navigate = useNavigate();
@@ -22,6 +27,13 @@ const UncontrolledForm = () => {
   const termsRef = useRef<HTMLInputElement>(null);
   const countries = useSelector((state: RootState) => state.app.countries);
   const [errors, setErrors] = useState<FormErrors>({});
+  const password = useSelector((state: RootState) => state.app.password);
+  const password_copy = useSelector((state: RootState) => state.app.password_copy);
+
+  useEffect(() => {
+    dispatch(setPassword(''));
+    dispatch(setPasswordCopy(''));
+  }, []);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -61,6 +73,14 @@ const UncontrolledForm = () => {
     navigate('/');
   };
 
+  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPassword((e.target as HTMLInputElement).value));
+  };
+
+  const changePasswordCopy = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPasswordCopy((e.target as HTMLInputElement).value));
+  };
+
   return (
     <>
       <div>Uncontrolled Form</div>
@@ -71,14 +91,23 @@ const UncontrolledForm = () => {
         {errors.age && <span className="error">{errors.age}</span>}
         <input id="email" type="text" placeholder="Email" ref={emailRef} />
         {errors.email && <span className="error">{errors.email}</span>}
-        <input id="password" type="password" placeholder="Password" ref={passwordRef} />
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          ref={passwordRef}
+          onChange={(e) => changePassword(e)}
+        />
+        <PasswordStrength password={password} />
         {errors.password && <span className="error">{errors.password}</span>}
         <input
           id="password_copy"
           type="password"
           placeholder="Confirm password"
           ref={passwordCopyRef}
+          onChange={(e) => changePasswordCopy(e)}
         />
+        <PasswordStrength password={password_copy} />
         {errors.password_copy && <span className="error">{errors.password_copy}</span>}
         <select id="gender" ref={genderRef}>
           <option value="male">Male</option>

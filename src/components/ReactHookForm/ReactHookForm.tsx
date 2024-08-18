@@ -4,9 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormFields } from '../../types';
 import { RootState } from '../../store/index.tsx';
-import { addReactHookFormResult } from '../../store/slices/appSlice.tsx';
+import {
+  addReactHookFormResult,
+  setPassword,
+  setPasswordCopy,
+} from '../../store/slices/appSlice.tsx';
 import { convertImage } from '../../utils/utils.tsx';
 import { schema } from '../../utils/validation.tsx';
+import PasswordStrength from '../Form/PasswordStrength.tsx';
+import { ChangeEvent, useEffect } from 'react';
 
 const ReactHookForm = () => {
   const {
@@ -22,6 +28,13 @@ const ReactHookForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.app.countries);
+  const password = useSelector((state: RootState) => state.app.password);
+  const password_copy = useSelector((state: RootState) => state.app.password_copy);
+
+  useEffect(() => {
+    dispatch(setPassword(''));
+    dispatch(setPasswordCopy(''));
+  }, []);
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     const convertedImage = await convertImage(data.image[0]);
@@ -41,6 +54,14 @@ const ReactHookForm = () => {
     navigate('/');
   };
 
+  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPassword((e.target as HTMLInputElement).value));
+  };
+
+  const changePasswordCopy = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPasswordCopy((e.target as HTMLInputElement).value));
+  };
+
   return (
     <>
       <div>React Hook Form</div>
@@ -51,14 +72,23 @@ const ReactHookForm = () => {
         {errors.age && <span className="error">{errors.age.message}</span>}
         <input id="rhf-email" type="email" placeholder="Email" {...register('email')} />
         {errors.email && <span className="error">{errors.email.message}</span>}
-        <input id="rhf-password" type="password" placeholder="Password" {...register('password')} />
+        <input
+          id="rhf-password"
+          type="password"
+          placeholder="Password"
+          {...register('password')}
+          onChange={(e) => changePassword(e)}
+        />
+        <PasswordStrength password={password} />
         {errors.password && <span className="error">{errors.password.message}</span>}
         <input
           id="rhf-password_copy"
           type="password"
           placeholder="Confirm password"
           {...register('password_copy')}
+          onChange={(e) => changePasswordCopy(e)}
         />
+        <PasswordStrength password={password_copy} />
         {errors.password_copy && <span className="error">{errors.password_copy.message}</span>}
         <select id="rhf-gender" {...register('gender')}>
           <option value="male">Male</option>
