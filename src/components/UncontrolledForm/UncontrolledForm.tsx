@@ -1,10 +1,13 @@
 import { FormEvent, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/index.tsx';
+import { addUncontrolledResult } from '../../store/slices/appSlice.tsx';
+import { convertImage } from '../../utils/utils.tsx';
 
 const UncontrolledForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -13,12 +16,27 @@ const UncontrolledForm = () => {
   const imageRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLSelectElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
-  const termsRef = useRef(null);
+  const termsRef = useRef<HTMLInputElement>(null);
   const countries = useSelector((state: RootState) => state.app.countries);
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    navigate('/');
+    if (imageRef?.current?.files) {
+      const convertedImage = await convertImage(imageRef?.current?.files[0]);
+      const result = {
+        name: nameRef?.current?.value ?? '',
+        age: ageRef?.current?.value ?? 0,
+        email: emailRef?.current?.value ?? '',
+        password: passwordRef?.current?.value ?? '',
+        password_copy: passwordCopyRef?.current?.value ?? '',
+        country: countryRef?.current?.value ?? '',
+        gender: genderRef?.current?.value ?? '',
+        terms: termsRef?.current?.checked ?? false,
+        image: convertedImage,
+      };
+      dispatch(addUncontrolledResult(result));
+      navigate('/');
+    }
   };
 
   return (

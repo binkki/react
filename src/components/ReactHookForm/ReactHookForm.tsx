@@ -1,15 +1,31 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FormFields } from '../../types';
 import { RootState } from '../../store/index.tsx';
+import { addReactHookFormResult } from '../../store/slices/appSlice.tsx';
+import { convertImage } from '../../utils/utils.tsx';
 
 const ReactHookForm = () => {
   const { register, handleSubmit, reset } = useForm<FormFields>();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.app.countries);
 
-  const onSubmit: SubmitHandler<FormFields> = async () => {
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    const convertedImage = convertImage(data.image[0]);
+    const result = {
+      name: data.name,
+      age: data.age,
+      email: data.email,
+      password: data.password,
+      password_copy: data.password_copy,
+      country: data.country,
+      gender: data.gender,
+      terms: data.terms,
+      image: convertedImage,
+    };
+    dispatch(addReactHookFormResult(result));
     reset();
     navigate('/');
   };
