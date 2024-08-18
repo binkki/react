@@ -244,20 +244,48 @@ export const defaultAppSliceValue = {
 
 export const textUpperPattern = {
   regex: /(?=.*[A-Z])/,
-  error: 'this field must contain at least one uppercase character A-Z',
+  error: 'This field must contain at least one uppercase character A-Z',
 };
 
 export const textLowerPattern = {
   regex: /(?=.*[a-z])/,
-  error: 'this field must contain at least one lovercase character a-z',
+  error: 'This field must contain at least one lovercase character a-z',
 };
 
 export const textNumberPattern = {
   regex: /(?=.*[0-9])/,
-  error: 'this field must contain at least one number 0-9',
+  error: 'This field must contain at least one number 0-9',
 };
 
 export const textSymbolPattern = {
-  regex: /(?=.*[!@#$%^&*])/,
-  error: 'this field must contain at least one of these special symbols !@#$%^&*',
+  regex: /(?=.*[!@#$%^_&*])/,
+  error: 'This field must contain at least one of these special symbols !@#$%^&*',
 };
+
+export const emailPattern = {
+  regex: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+  error: 'Invalid email',
+};
+
+export const whtespacesPattern = {
+  regex: /^\S*$/,
+  error: 'This field must not contain any whitespaces',
+};
+
+export const nameRequired = 'Name is required';
+export const ageRequired = 'Age is required';
+export const emailRequired = 'Email is required';
+export const passwordRequired = 'Password is required';
+export const countryRequired = 'Country is required';
+export const imageRequired = 'Image is required';
+
+export const passwordMatch = "Passwords don't match";
+export const invalidCountry = 'Invalid country';
+export const termsAccept = 'Please read and accept our terms and conditions';
+export const imageExt = 'You can upload only png, jpg and jpeg files';
+export const imageSize = 'Maximum image size is 5MB';
+
+export const minAge = 1;
+export const maxAge = 120;
+export const minAgeRequired = 'You should at least 1 year old to submit this form';
+export const maxAgeRequired = 'Invalid age';

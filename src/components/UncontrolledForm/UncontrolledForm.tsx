@@ -9,7 +9,7 @@ import {
 } from '../../store/slices/appSlice.tsx';
 import { convertImage } from '../../utils/utils.tsx';
 import { FormErrors } from '../../types/index.tsx';
-import { getYupErrors, schema } from '../../utils/validation.tsx';
+import { getValidationErrors, schema } from '../../utils/validation.tsx';
 import { ValidationError } from 'yup';
 import PasswordStrength from '../Form/PasswordStrength.tsx';
 
@@ -53,7 +53,7 @@ const UncontrolledForm = () => {
       await schema.validate(result, { abortEarly: false });
     } catch (error) {
       if (error instanceof ValidationError) {
-        const errors = getYupErrors(error);
+        const errors = getValidationErrors(error);
         setErrors(errors);
         return;
       }
