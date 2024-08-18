@@ -26,13 +26,17 @@ const FormPreview = (props: FormPreviewProps) => {
       <div>Gender: {formData.gender}</div>
       <div>Country: {formData.country}</div>
       <div>Terms and Conditions: {formData.terms ? 'accepted' : 'declined'}</div>
-      {formData.image && <img src={formData.image} alt="image" />}
-      <NavLink to={formLink}>Fill another form</NavLink>
+      <div>{formData.image && <img src={formData.image} alt="image" className="form-image" />}</div>
+      <NavLink to={formLink} className="link">
+        Fill another form
+      </NavLink>
     </div>
   ) : (
     <div className="form-preview">
       <div>No data found for {formType} form</div>
-      <NavLink to={formLink}>Fill form</NavLink>
+      <NavLink to={formLink} className="link">
+        Fill form
+      </NavLink>
     </div>
   );
 };

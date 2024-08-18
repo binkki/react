@@ -4,8 +4,10 @@ import ReactHookForm from '../../components/ReactHookForm/ReactHookForm';
 const ReactHookFormPage = () => {
   return (
     <div>
-      <NavLink to="/">Main Page</NavLink>
       <ReactHookForm />
+      <NavLink to="/" className="link">
+        Go to Main Page
+      </NavLink>
     </div>
   );
 };

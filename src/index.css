@@ -23,7 +23,28 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  position: relative;
   top: 10px;
   width: 390px;
+  margin-bottom: 10px;
+}
+
+.error {
+  width: fit-content;
+  font-size: 0.7rem;
+  color: red;
+}
+
+.link {
+  color: black;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.form-image {
+  width: 300px;
 }

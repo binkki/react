@@ -4,8 +4,10 @@ import UncontrolledForm from '../../components/UncontrolledForm/UncontrolledForm
 const UncontrolledFormPage = () => {
   return (
     <div>
-      <NavLink to="/">Main Page</NavLink>
       <UncontrolledForm />
+      <NavLink to="/" className="link">
+        Go to Main Page
+      </NavLink>
     </div>
   );
 };
