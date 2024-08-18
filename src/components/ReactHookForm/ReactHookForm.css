@@ -1,0 +1,45 @@
+#form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  top: 10px;
+  width: 390px;
+}
+
+.input-wrapper {
+  position: relative;
+  margin: 45px 0;
+}
+
+.form-text {
+  background: none;
+  color: gray;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid gray;
+  &:focus {
+    outline: none;
+  }
+  &:focus ~ label,
+  &:valid ~ label {
+    top: -14px;
+    font-size: 12px;
+    color: black;
+  }
+}
+
+.form-text-label {
+  color: gray;
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 1s ease all;
+}

@@ -1,7 +1,7 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-import MainPage from "./pages/MainPage/MainPage";
-import UncontrolledFormPage from "./pages/UncontrolledFormPage/UncontrolledFormPage";
-import ReactHookFormPage from "./pages/ReactHookFormPage/ReactHookFormPage";
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import MainPage from './pages/MainPage/MainPage';
+import UncontrolledFormPage from './pages/UncontrolledFormPage/UncontrolledFormPage';
+import ReactHookFormPage from './pages/ReactHookFormPage/ReactHookFormPage';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
