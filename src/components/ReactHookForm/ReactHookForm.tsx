@@ -1,10 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { FormFields } from '../../types';
+import { RootState } from '../../store/index.tsx';
 
 const ReactHookForm = () => {
   const { register, handleSubmit, reset } = useForm<FormFields>();
   const navigate = useNavigate();
+  const countries = useSelector((state: RootState) => state.app.countries);
 
   const onSubmit: SubmitHandler<FormFields> = async () => {
     reset();
@@ -30,7 +33,11 @@ const ReactHookForm = () => {
           <option value="female">Female</option>
         </select>
         <select id="rhf-country" {...register('country')}>
-          <option value="nocountry">No country</option>
+          {countries.map((optionCountry: string, _) => (
+            <option key={_} value={optionCountry}>
+              {optionCountry}
+            </option>
+          ))}
         </select>
         <input id="rhf-image" type="file" {...register('image')} />
         <div>

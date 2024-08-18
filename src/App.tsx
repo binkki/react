@@ -1,4 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import MainPage from './pages/MainPage/MainPage';
 import UncontrolledFormPage from './pages/UncontrolledFormPage/UncontrolledFormPage';
 import ReactHookFormPage from './pages/ReactHookFormPage/ReactHookFormPage';
@@ -23,5 +25,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
