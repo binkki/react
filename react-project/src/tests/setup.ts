@@ -8,11 +8,12 @@ expect.extend(matchers);
 
 const server = setupServer(...handlers);
 
-beforeEach(() => server.listen());
+beforeEach(() => {
+  server.listen();
+});
 
 afterEach(() => {
   server.resetHandlers();
+  server.close();
   cleanup();
 });
-
-afterAll(() => server.close());

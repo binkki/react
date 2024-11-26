@@ -25,11 +25,3 @@ export type CharacterApiResponse = {
   results: Character[];
   detail: string;
 };
-
-export type AppSlice = {
-  page: number;
-  characters: CharacterApiResponse;
-  bookmarkedCharacters: Character[];
-  detailsCharacterId: number;
-  searchValue: string;
-};

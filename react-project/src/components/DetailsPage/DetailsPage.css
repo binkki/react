@@ -5,6 +5,8 @@
   height: 450px;
   align-self: start;
   flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
   padding: 5px;
   & > span {
     display: inline-block;
@@ -22,8 +24,9 @@
   border: none;
   outline: none;
   background-color: transparent;
+  background-image: url(https://i.ibb.co/R2SMV7Q/close.png);
   &:hover {
-    background-image: url(https://i.ibb.co/HVqF2b8/close-hover.png) !important;
+    background-image: url(https://i.ibb.co/HVqF2b8/close-hover.png);
     cursor: pointer;
   }
 }
@@ -61,17 +64,5 @@
   }
   .details-image {
     width: 390px;
-  }
-}
-
-#root:has(> .dark) {
-  .details-button {
-    background-image: url(https://i.ibb.co/R2SMV7Q/close.png);
-  }
-}
-
-#root:has(> .light) {
-  .details-button {
-    background-image: url(https://i.ibb.co/F8BNsdz/close-light.png);
   }
 }

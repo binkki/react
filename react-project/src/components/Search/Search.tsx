@@ -1,31 +1,35 @@
-import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { SEARCH_PLACEHOLDER } from '../../utils/constants';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { setPage, setSearchValue } from '../../store/slices/appSlice';
+import { useNavigate } from 'react-router-dom';
 import './Search.css';
+import { useEffect, useState } from 'react';
+import React from 'react';
 
 type SearchFormFields = {
   search: string;
 };
 
-const Search = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+type SearchProps = {
+  isDisabled?: boolean;
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Search = (props: SearchProps) => {
+  const { isDisabled, reload, setReload } = props;
   const { register, handleSubmit } = useForm<SearchFormFields>();
   const { localValue, setLocalValue } = useLocalStorage();
-  const [search, setSearch] = useState('');
+  const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setSearch(localValue);
+    setSearchValue(localValue);
   }, [localValue]);
 
   const submitSearch: SubmitHandler<SearchFormFields> = async (data) => {
     setLocalValue(data.search.trim());
-    dispatch(setSearchValue(data.search.trim()));
-    dispatch(setPage(1));
+    setReload(!reload);
     navigate('/1');
   };
 
@@ -33,12 +37,19 @@ const Search = () => {
     <form className="search-wrapper flex" onSubmit={handleSubmit(submitSearch)}>
       <input
         id="search-input"
+        className={isDisabled ? 'loading' : ''}
         type="text"
         autoComplete="off"
-        placeholder={search ? `Search result for '${search}'` : SEARCH_PLACEHOLDER}
+        placeholder={
+          searchValue && !isDisabled ? `Search result for '${searchValue}'` : SEARCH_PLACEHOLDER
+        }
+        disabled={isDisabled ?? false}
         {...register('search')}
       />
-      <button className="search-button" data-testid="search-button" />
+      <button
+        className={isDisabled ? 'loading search-button' : 'search-button'}
+        disabled={isDisabled ?? false}
+      />
     </form>
   );
 };

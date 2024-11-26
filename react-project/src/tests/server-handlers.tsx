@@ -9,7 +9,7 @@ const handlers = [
       next: '/1',
     });
   }),
-  http.get(`${CHARACTER_URL}*`, () => {
+  http.get(`${CHARACTER_URL}/1`, () => {
     return HttpResponse.json(testCharacterList[0]);
   }),
 ];

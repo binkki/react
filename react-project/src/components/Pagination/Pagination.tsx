@@ -1,18 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setPage } from '../../store/slices/appSlice';
-import { RootState } from '../../store';
 import './Pagination.css';
+import React from 'react';
 
-const Pagination = () => {
-  const currentPage = useSelector((state: RootState) => state.app.page);
-  const characters = useSelector((state: RootState) => state.app.characters);
-  const dispatch = useDispatch();
+type PaginationProps = {
+  currentPage: number;
+  nextPage: string | null;
+  previousPage: string | null;
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Pagination = (props: PaginationProps) => {
+  const { currentPage, nextPage, previousPage, reload, setReload } = props;
   const navigate = useNavigate();
 
   const changePage = (step: number) => {
     const newPage = currentPage + step;
-    dispatch(setPage(newPage));
+    setReload(!reload);
     navigate(`/${newPage}`);
   };
 
@@ -22,7 +26,7 @@ const Pagination = () => {
         type="submit"
         className="pagination-item clickable"
         value="<"
-        disabled={characters && characters.previous ? false : true}
+        disabled={previousPage ? false : true}
         onClick={() => changePage(-1)}
       />
       <span className="pagination-item" data-testid="pagination-page">
@@ -32,7 +36,7 @@ const Pagination = () => {
         type="submit"
         className="pagination-item clickable"
         value=">"
-        disabled={characters && characters.next ? false : true}
+        disabled={nextPage ? false : true}
         onClick={() => changePage(1)}
       />
     </div>
