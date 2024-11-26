@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import NotFound from '../NotFound/NotFound';
+import NotFound from '../../pages/NotFound/NotFound';
 
 type ErrorBoundaryState = {
   hasError: boolean;

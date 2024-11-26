@@ -1,9 +1,7 @@
 import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
 import { act, render, screen, waitFor } from '@testing-library/react';
-import { testCharacterList } from './testData';
 import { createMemoryRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { getCharacterImageUrl } from '../utils/utils';
 import DetailsPage from '../pages/DetailsPage/DetailsPage';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import MainPage from '../pages/MainPage/MainPage';
@@ -11,9 +9,9 @@ import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '../context/ThemeContext';
 import { store } from '../store';
-import { Character } from '../types';
 
-describe('Character Item Component', () => {
+describe('Flyout Component', () => {
+  global.URL.createObjectURL = vi.fn();
   const router = createMemoryRouter([
     { path: '/', element: <Navigate to="/1" replace /> },
     {
@@ -38,32 +36,11 @@ describe('Character Item Component', () => {
     );
   };
 
-  it('Ensure that the card component renders the relevant card data', async () => {
+  it('Should render flyout component if character was bookmarked', async () => {
     renderWithProvider();
-    await waitFor(
-      () => {
-        return screen.findAllByTestId('character-list');
-      },
-      {
-        timeout: 50000,
-      }
-    );
-
-    const characterImages = await screen.findAllByRole('img');
-
-    testCharacterList.map((x: Character, _: number) => {
-      const characterName = screen.getAllByText(x.name);
-      expect(characterName.length).toBe(1);
-      expect(characterImages[_].getAttribute('src')).toBe(getCharacterImageUrl(x.url));
-    });
-  });
-
-  it('Validate that clicking on a card opens a detailed card component', async () => {
-    renderWithProvider();
-
     const items = await waitFor(
       () => {
-        return screen.findAllByTestId('character-list');
+        return screen.findAllByTestId('bookmark');
       },
       {
         timeout: 50000,
@@ -74,14 +51,60 @@ describe('Character Item Component', () => {
       await userEvent.click(items[0]);
     });
 
-    const detailsItem = await waitFor(
+    const flyout = screen.getByTestId('flyout');
+    expect(flyout).toBeInTheDocument();
+    await act(async () => {
+      await userEvent.click(items[0]);
+    });
+  });
+
+  it('Should remove flyout if nothing was bookmarked', async () => {
+    renderWithProvider();
+    const items = await waitFor(
       () => {
-        return screen.findAllByTestId('character-details');
+        return screen.findAllByTestId('bookmark');
       },
       {
         timeout: 50000,
       }
     );
-    expect(detailsItem.length).toBe(1);
+    await act(async () => {
+      await userEvent.click(items[0]);
+    });
+
+    const flyout = screen.getByTestId('flyout');
+    expect(flyout).toBeInTheDocument();
+
+    await act(async () => {
+      await userEvent.click(items[0]);
+    });
+
+    expect(flyout).not.toBeInTheDocument();
+  });
+
+  it('Should remove flyout if unselect all button was clicked', async () => {
+    renderWithProvider();
+    const items = await waitFor(
+      () => {
+        return screen.findAllByTestId('bookmark');
+      },
+      {
+        timeout: 50000,
+      }
+    );
+    await act(async () => {
+      await userEvent.click(items[0]);
+    });
+
+    const flyout = screen.getByTestId('flyout');
+    expect(flyout).toBeInTheDocument();
+
+    const unselectButton = screen.getByTestId('flyout-unselect');
+
+    await act(async () => {
+      await userEvent.click(unselectButton);
+    });
+
+    expect(flyout).not.toBeInTheDocument();
   });
 });
