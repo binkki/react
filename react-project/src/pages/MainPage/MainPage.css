@@ -1,0 +1,100 @@
+.main-wrapper {
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between !important;
+  gap: 10px;
+}
+
+.main-container {
+  min-height: calc(100vh - 120px);
+}
+
+.main-container {
+  width: calc(100% - 20px);
+  max-width: 1500px;
+}
+
+.characters-flex {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.character-item {
+  flex-direction: column;
+  width: 100px;
+  height: 160px;
+  justify-content: flex-start !important;
+  gap: 10px;
+  & > span {
+    align-self: flex-start;
+    margin-left: 5px;
+  }
+}
+
+.character-image {
+  width: calc(100% - 10px);
+  border-radius: 10px;
+}
+
+@media (min-width: 500px) {
+  .character-item {
+    width: 130px;
+    height: 210px;
+  }
+}
+
+@media (min-width: 800px) {
+  .character-item {
+    width: 170px;
+    height: 260px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .character-item {
+    width: 200px;
+    height: 310px;
+  }
+}
+
+.theme-button {
+  background-color: transparent;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#root:has(> .dark) {
+  .theme-button {
+    background-image: url(https://i.ibb.co/hFh0xC3/moon-2.png);
+  }
+}
+
+#root:has(> .light) {
+  .theme-button {
+    background-image: url(https://i.ibb.co/hChZDcs/sun.png);
+  }
+}
+
+.bookmark-button {
+  background-image: url(https://i.ibb.co/b711hPp/bookmark.png);
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.starred {
+  background-image: url(https://i.ibb.co/vzqPTs1/bookmark-selected.png);
+}

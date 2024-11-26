@@ -1,0 +1,27 @@
+.pagination {
+  height: 40px;
+  gap: 10px;
+  border: 1px solid;
+  border-radius: 20px;
+  &:hover {
+    cursor: default;
+  }
+}
+
+.pagination-item {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  align-content: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: inherit;
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    color: transparent;
+    cursor: default !important;
+  }
+}

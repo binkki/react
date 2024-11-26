@@ -1,0 +1,2 @@
+cd ./react-project
+npm run lint
