@@ -1,0 +1,29 @@
+.loader {
+  width: 64px;
+  height: 64px;
+  background-image: url(https://i.ibb.co/kKJ9CVr/loader.png);
+  animation: rotation 2s linear infinite;
+  background-color: transparent;
+  border: none;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#root:has(> .dark) {
+  .loader {
+    background-image: url(https://i.ibb.co/kKJ9CVr/loader.png);
+  }
+}
+
+#root:has(> .light) {
+  .loader {
+    background-image: url(https://i.ibb.co/St8xpg9/loader-light.png);
+  }
+}
